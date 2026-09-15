@@ -1,5 +1,13 @@
 # Decision Log
 
+## 2026-09-14 - Runtime-selected Eevee engine
+
+**Decision:** Select Eevee from the identifiers Blender exposes at runtime, preferring `BLENDER_EEVEE_NEXT` for Blender 4.x and falling back to `BLENDER_EEVEE` for Blender 5.x. Fail with the available engine list when neither exists.
+
+**Reason:** The first real Mac build on Blender 5.2.0 LTS rejected the Blender 4.5 identifier before scene construction. Blender's official 5.2 API documents `BLENDER_EEVEE`; the remaining scene sampling API is still available. Runtime discovery keeps the same scene portable without silently switching to Workbench or Cycles.
+
+**Validation boundary:** Both identifier sets are covered by Blender-independent tests and the Blender 4.5 scene build is rechecked locally. The creator must rerun `build` on the Mac to establish successful Blender 5.2 execution.
+
 ## 2026-09-11 - One-repository Mac handoff and HD upgrade
 
 **Decision:** Publish source, episode documents, tests, setup locks and standalone Blender packets to user-selected `issa402/YoutubeBlen`. Track imported `external/blenderyt` reference files directly, including local edits, and preserve its original Git metadata under ignored `.studio/git-archive/`. Use LF shell files and one normal clone/pull.

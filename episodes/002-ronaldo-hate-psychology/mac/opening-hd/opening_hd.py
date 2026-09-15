@@ -1,4 +1,4 @@
-"""Native-HD, original sports documentary opening. Blender 4.5; no assets/downloads."""
+"""Native-HD original documentary opening for Blender 4.5/5.2; no assets."""
 import argparse
 import json
 import math
@@ -11,7 +11,7 @@ from mathutils import Vector
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from sequence_spec import load_manifest, safe_output, shot_at
-from hd_spec import render_fingerprint, remaining_frames, validate_png
+from hd_spec import render_fingerprint, remaining_frames, select_eevee_engine, validate_png
 
 DIAGNOSTICS = (1, 178, 356, 357, 464, 571, 572, 646, 720)
 
@@ -268,7 +268,8 @@ def build(manifest):
     bpy.ops.object.select_all(action='SELECT')
     bpy.ops.object.delete(use_global=False)
     scene = bpy.context.scene
-    scene.render.engine = 'BLENDER_EEVEE_NEXT'
+    engine_ids = {item.identifier for item in scene.render.bl_rna.properties['engine'].enum_items}
+    scene.render.engine = select_eevee_engine(engine_ids)
     scene.eevee.taa_render_samples = manifest.get('samples', 16)
     scene.render.fps, scene.frame_start, scene.frame_end = 24, 1, 720
     scene.render.resolution_x, scene.render.resolution_y = manifest['resolution']

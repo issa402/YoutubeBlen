@@ -6,6 +6,15 @@ import struct
 import zlib
 
 
+def select_eevee_engine(identifiers):
+    """Choose Eevee across Blender 4.x and 5.x without masking unsupported builds."""
+    available = set(identifiers)
+    for candidate in ('BLENDER_EEVEE_NEXT', 'BLENDER_EEVEE'):
+        if candidate in available:
+            return candidate
+    raise ValueError(f'No supported Eevee render engine found; available: {sorted(available)}')
+
+
 def render_fingerprint(sources, manifest):
     digest = hashlib.sha256(json.dumps(manifest, sort_keys=True).encode())
     for source in sources:

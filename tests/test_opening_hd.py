@@ -6,7 +6,7 @@ import tempfile
 import unittest
 import zlib
 
-from blender.hd_spec import render_fingerprint, validate_png, remaining_frames
+from blender.hd_spec import render_fingerprint, validate_png, remaining_frames, select_eevee_engine
 
 
 def tiny_png(path, width=2, height=2):
@@ -17,6 +17,12 @@ def tiny_png(path, width=2, height=2):
 
 
 class HdPacketTests(unittest.TestCase):
+    def test_eevee_engine_selection_supports_blender_45_and_52(self):
+        self.assertEqual(select_eevee_engine({'BLENDER_EEVEE_NEXT', 'CYCLES'}), 'BLENDER_EEVEE_NEXT')
+        self.assertEqual(select_eevee_engine({'BLENDER_EEVEE', 'CYCLES'}), 'BLENDER_EEVEE')
+        with self.assertRaises(ValueError):
+            select_eevee_engine({'BLENDER_WORKBENCH', 'CYCLES'})
+
     def test_mac_packet_sources_match_canonical_code_and_1080p_contract(self):
         root = Path(__file__).resolve().parents[1]
         packet = root / 'episodes/002-ronaldo-hate-psychology/mac/opening-hd'

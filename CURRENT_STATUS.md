@@ -17,6 +17,7 @@ Canonical folder: `episodes/002-ronaldo-hate-psychology/`. Folder ID 002 is reta
 ## Completed
 
 - New standalone `mac/opening-hd/` packet: articulated faceless figures, smoother geometry, metallic seamed football/trophy, parented feed typography, three cameras and preserved cuts at frames 357/572. Nine 1920x1080 diagnostic frames actually rendered with Blender 4.5.13 LTS on Windows; motion and PNG integrity checks passed. Full HD rendering and native Mac execution remain pending.
+- The first Mac build on Blender 5.2.0 exposed its renamed Eevee engine identifier (`BLENDER_EEVEE` instead of Blender 4.5's `BLENDER_EEVEE_NEXT`). Runtime engine discovery now supports both and fails clearly if Eevee is unavailable. The compatibility path is unit-tested and Windows 4.5 is rechecked; Mac 5.2 still needs the creator's rerun after pulling the fix.
 - Local Kokoro ONNX opening voice: exact 80 words, 29.793 seconds, stock American male voice. Model/voices verified against upstream SHA256; CPU runtime isolated. Bounded pitch-preserving fitting preserves speech. See `tools/neural_voice_README.md`.
 - ASR caption alignment v2: 80/80 words matched, no interpolated words, estimated speech timestamps. `studio align-captions` preserves the source script and emits JSON/SRT/VTT. `.studio/captions/opening-neural-v2/`.
 - `studio finish-opening` checks audio/text hashes, alignment success/coverage, cue timings, 720 frames/24 fps and source HD dimensions. Actual HD fixture encoding/decoding passed; the full Blender HD sequence is not yet rendered.
