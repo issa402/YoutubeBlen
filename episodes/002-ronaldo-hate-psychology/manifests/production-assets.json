@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "guide": {
+    "timeline": ".studio/audio/episode-guide-v1/timeline.json",
+    "audio": ".studio/audio/episode-guide-v1/narration-guide.wav",
+    "report": ".studio/audio/episode-guide-v1/report.json"
+  },
+  "opening": {
+    "video": ".studio/renders/opening-sequence-voiced/video.mp4",
+    "verification": ".studio/renders/opening-sequence-voiced/verification.json",
+    "motion_report": ".studio/packages/opening-30s-v2/motion-report.json",
+    "poster": ".studio/packages/opening-30s-v2/previews/frame_0464.png",
+    "polished_video": ".studio/renders/opening-polished/video.mp4",
+    "polished_poster": ".studio/renders/opening-polished/poster.png"
+  },
+  "mac": {
+    "readme": "episodes/002-ronaldo-hate-psychology/mac/opening/README.md"
+  }
+}

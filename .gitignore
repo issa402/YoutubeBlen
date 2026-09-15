@@ -1,0 +1,56 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+config.local.*
+*.key
+*.pem
+*.p12
+*.pfx
+.codex/
+.agents/
+
+# Python and Node
+.venv/
+.studio/
+.pytest_cache/
+.coverage
+htmlcov/
+.headroom/
+__pycache__/
+*.py[cod]
+node_modules/
+
+# Local AI models, indexes, and caches
+models/
+.cache/
+.mempalace/
+.wigolo/
+research/raw/
+research/cache/
+
+# Large media and render outputs
+media/source/
+media/proxies/
+renders/
+output/
+*.blend1
+*.blend
+*.log
+*.onnx
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.exr
+*.mp4
+*.mov
+*.mkv
+*.wav
+*.flac
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/settings.json

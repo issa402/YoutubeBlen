@@ -1,0 +1,7 @@
+*.blend
+*.blend1
+render.log
+motion-report.json
+previews/
+frames/
+__pycache__/

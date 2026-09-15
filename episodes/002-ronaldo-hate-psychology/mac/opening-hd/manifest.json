@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "fps": 24,
+  "frame_start": 1,
+  "frame_end": 720,
+  "resolution": [1920, 1080],
+  "preview_resolution": [1920, 1080],
+  "output": "frames",
+  "samples": 16
+}

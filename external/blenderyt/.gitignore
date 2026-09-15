@@ -1,0 +1,62 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+config.local.*
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Python and Node
+.venv/
+__pycache__/
+*.py[cod]
+node_modules/
+
+# Local AI models, indexes, and caches
+models/
+.cache/
+.mempalace/
+.wigolo/
+research/raw/
+research/cache/
+
+# Blender temporary/generated files
+*.blend1
+*.blend2
+*.blend@*
+
+# Generated renders/media: keep placeholders only
+outputs/*
+!outputs/.gitkeep
+!outputs/**/.gitkeep
+renders/
+output/
+media/source/
+media/proxies/
+
+# Local reference/downloaded assets
+assets/reference/*
+assets/generated/*
+!assets/**/.gitkeep
+reference_media/
+
+# Media and captions
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.mp3
+*.wav
+*.m4a
+*.flac
+*.vtt
+*.srt
+
+# Local logs and editor files
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/settings.json

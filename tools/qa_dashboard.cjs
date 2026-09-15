@@ -1,0 +1,57 @@
+// Isolated local-browser checks; never attaches to a personal browser profile.
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const {pathToFileURL, fileURLToPath} = require('node:url');
+const {chromium} = require('playwright');
+const root = path.resolve(__dirname, '..');
+const output = path.join(root, '.studio', 'qa', 'dashboard');
+fs.mkdirSync(output, {recursive: true});
+(async () => {
+  const browser = await chromium.launch({headless: true, ...(process.env.STUDIO_CHROMIUM ? {executablePath:process.env.STUDIO_CHROMIUM} : {})});
+  try {
+    const context = await browser.newContext({viewport:{width:1440,height:1100}, reducedMotion:'reduce'});
+    await context.route(/^https?:/, route => route.abort());
+    const page = await context.newPage();
+    const errors = [];
+    page.on('pageerror', error => errors.push(error.message));
+    await page.goto(pathToFileURL(path.join(root,'.studio','dashboard.html')).href);
+    await page.locator('#episode-title').filter({hasText:'Why Do Some Messi Fans'}).waitFor();
+    assert.equal(await page.locator('.chapter-button').count(),9);
+    await page.waitForFunction(() => document.querySelector('#opening-video').readyState >= 2 && document.querySelector('#guide-audio').readyState >= 1);
+    const media = await page.evaluate(() => ({video:document.querySelector('#opening-video').duration,audio:document.querySelector('#guide-audio').duration}));
+    assert(Math.abs(media.video-30)<.1);
+    assert(Math.abs(media.audio-580.1985)<.1);
+    await page.screenshot({path:path.join(output,'desktop.png')});
+    await page.locator('.chapter-button').nth(2).click();
+    assert.equal(await page.locator('.chapter-button').nth(2).evaluate(button=>document.activeElement===button),true);
+    assert((await page.locator('#chapter-detail h3').textContent()).includes('miss'));
+    await page.locator('.chapter-actions button').click();
+    await page.waitForFunction(() => document.querySelector('#guide-audio').currentTime > 110 && !document.querySelector('#guide-audio').paused);
+    await page.locator('#guide-audio').evaluate(audio => audio.pause());
+    await page.locator('#file-search').fill('nothing-matches-this-unique-query');
+    assert.equal(await page.locator('.file-row').count(),0);
+    await page.locator('#file-search').fill('NARRATION');
+    assert((await page.locator('.file-row').count())>=2);
+    await page.locator('[data-filter="outputs"]').click();
+    assert((await page.locator('.file-row').count())>=1);
+    await page.locator('#file-search').fill('');
+    await page.locator('[data-filter="episode"]').click();
+    const localLinks = await page.locator('a[href]').evaluateAll(links => links.map(a=>a.href).filter(url=>url.startsWith('file:')&&!url.includes('#')));
+    for(const link of localLinks) assert(fs.existsSync(fileURLToPath(link)), `Missing local link: ${link}`);
+    await page.locator('#episode-select').selectOption('001-messi-hate');
+    assert.equal(await page.locator('#video-empty').isVisible(),true);
+    assert.equal(await page.locator('#opening-video').isVisible(),false);
+    await page.locator('#episode-select').selectOption('002-ronaldo-hate-psychology');
+    await page.setViewportSize({width:375,height:850});
+    await page.evaluate(()=>window.scrollTo(0,0));
+    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth);
+    assert.equal(overflow,false,'Mobile horizontal overflow');
+    await page.screenshot({path:path.join(output,'mobile.png')});
+    await page.keyboard.press('Tab');
+    assert.notEqual(await page.evaluate(()=>document.activeElement.tagName),'BODY');
+    assert.deepEqual(errors,[]);
+    fs.writeFileSync(path.join(output,'report.json'),JSON.stringify({passed:true,media,chapter_count:9,local_links_checked:localLinks.length,mobile_horizontal_overflow:overflow,page_errors:errors,checks:['video/audio metadata','chapter cue starts playback','file search and group filters','local file links','episode switch empty state','mobile layout','keyboard focus']},null,2));
+    console.log('Dashboard browser checks passed; screenshots in .studio/qa/dashboard.');
+  } finally { await browser.close(); }
+})().catch(error=>{console.error(error);process.exitCode=1;});

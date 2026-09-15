@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "scene": "trophy_media_machine",
+  "seed": 42,
+  "fps": 24,
+  "frame_start": 1,
+  "frame_end": 192,
+  "resolution": [1920, 1080],
+  "preview_resolution": [640, 360],
+  "output": "frames",
+  "editorial_label": "OPINION",
+  "description": "Original visual metaphor: abstract red and cyan competitors, trophy and media screens. No real likeness or match reconstruction."
+}

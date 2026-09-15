@@ -1,0 +1,22 @@
+{
+  "episode_id": "001-messi-hate",
+  "title": "Why Is Messi Facing So Much Hate Right Now?",
+  "format": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "blender": {
+    "entry_script": "blender/episode_001.py",
+    "scene": "Scene",
+    "camera": "CAM_Main",
+    "frame_start": 1,
+    "frame_end": 1800,
+    "preview_percentage": 25,
+    "seed": 2016
+  },
+  "editorial": {
+    "claims_ledger": "episodes/001-messi-hate/CLAIMS_LEDGER.md",
+    "sources_register": "episodes/001-messi-hate/research/SOURCES.md"
+  }
+}

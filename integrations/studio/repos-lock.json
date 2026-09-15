@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "repositories": [
+    {
+      "name": "hermes-agent",
+      "url": "https://github.com/NousResearch/hermes-agent.git",
+      "commit": "9dd6634c5635321cf38840cc30e9b51226689128"
+    },
+    {
+      "name": "ViMax",
+      "url": "https://github.com/HKUDS/ViMax.git",
+      "commit": "05a48943878312d88fe5a016c12a9654940ecc43"
+    },
+    {
+      "name": "Understand-Anything",
+      "url": "https://github.com/Egonex-AI/Understand-Anything.git",
+      "commit": "787da45adbf18aab5c3e3e531b0374dd576f263c"
+    },
+    {
+      "name": "last30days-skill",
+      "url": "https://github.com/mvanhorn/last30days-skill.git",
+      "commit": "56ba5ace27e4697aedc60aa0b1e1bfdcd592ff20"
+    }
+  ]
+}
