@@ -1,5 +1,12 @@
 # Decision Log
 
+## 2026-09-15 - Four-shot superhero crossover
+
+**Decision:** Recreate the creator-supplied screen recording's shot order and approximate timing: Messi as Omni-Man, Mbappe as a Ninja Turtle replacing Spider-Man, and Cristiano Ronaldo in a Superman-style role replacing Thor. The source is 4.334 seconds; use 104 frames at 24 fps (4.333 seconds) and cuts at 24/47/72. Retain a large foreshortened pointing hand followed by the doorway reveal.
+
+**Art and delivery:** Original editable 2.5D artwork in a standalone `mac/superhero-crossover/` packet, with deterministic animation, clean camera viewport, and code-only Git transfer. This is a stylized reconstruction, not pixel-identical replacement footage. Source audio/UI are not copied. Original screen recording remains local, and existing openings stay available. No factual claim or narration revision is introduced.
+
+
 ## 2026-09-15 - Illustrated floating Messi opening
 
 **Decision:** Follow the creator's supplied floating superhero reference with an original stylized Messi illustration, crossed arms, Argentina-inspired kit, blue cape and layered city. Use editable polygon/ink layers in Blender, deterministic cape vertex animation and a slow orthographic push-in. This is 2.5D artwork, not a fully sculpted likeness. The fictional pose is a visual metaphor, not a factual event.

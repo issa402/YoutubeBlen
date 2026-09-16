@@ -2,6 +2,8 @@
 
 ## Channel identity
 
+Newest visual request: `mac/superhero-crossover/` under episode 002. Four-shot 4.333-second adaptation of the creator's video: Omni-Man Messi, Ninja Turtle Mbappe crouch/point, Superman-style Ronaldo doorway reveal. This supersedes the single floating shot as the current visual request; earlier packets remain available.
+
 Latest visual direction (2026-09-15): the creator requested a cartoon Messi floating above a city with crossed arms, based on an attached superhero pose. New standalone 12-second scene: `episodes/002-ronaldo-hate-psychology/mac/messi-floating/`. Its README is the entry point for this clip. The existing 30-second opening below remains available for editing; its voice/finishing timing is not automatically compatible with the new 12-second clip.
 
 Current upgraded render packet: `episodes/002-ronaldo-hate-psychology/mac/opening-hd/`. Follow `tools/MAC_START_HERE.md` for the user-selected `https://github.com/issa402/YoutubeBlen.git` clone/pull workflow. Nine native 1080p samples are verified; full HD rendering remains pending. Local neural opening voice and v2 ASR captions are ready under `.studio/`; Windows finishing commands are in `tools/HD_FINISHING.md`. Imported `external/blenderyt/` is ordinary preserved reference source, not a required submodule.

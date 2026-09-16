@@ -1,5 +1,7 @@
 # Start the Blender opening on your Mac
 
+For the newest **Messi / Mbappe / Ronaldo superhero sequence**, use [the crossover packet](../episodes/002-ronaldo-hate-psychology/mac/superhero-crossover/README.md). It recreates the four-shot reference in 4.333 seconds.
+
 For the latest **floating Messi cartoon opening**, follow [the new packet instructions](../episodes/002-ronaldo-hate-psychology/mac/messi-floating/README.md). That clip is 12 seconds and opens directly in a clean camera view. The guide below applies to the earlier three-set 30-second opening.
 
 Repository: https://github.com/issa402/YoutubeBlen.git
