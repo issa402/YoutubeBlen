@@ -1,6 +1,6 @@
 # Current Status
 
-Last updated: 2026-09-11
+Last updated: 2026-09-15
 
 ## Current phase
 
@@ -15,6 +15,8 @@ Repository: `https://github.com/issa402/YoutubeBlen.git`, branch `main`. Mac ent
 Canonical folder: `episodes/002-ronaldo-hate-psychology/`. Folder ID 002 is retained; release order is 1. Creator take, master production script, source register, claim ledger and Shorts are saved there. Episode 001 remains an earlier separate draft.
 
 ## Completed
+
+- New creator-requested `mac/messi-floating/` opening: 12 seconds / 288 frames, original layered cartoon Messi with crossed arms, blue cape deformation, hovering motion and city parallax. Five 960x540 diagnostic frames rendered in Blender 4.5 and motion-state assertions passed; default Mac output is 1920x1080. The new scene opens in camera view with overlays/gizmos hidden. This is a standalone replacement opening clip; narration retiming, integration with the existing 30-second cut, full frame rendering, and native Mac verification remain pending.
 
 - New standalone `mac/opening-hd/` packet: articulated faceless figures, smoother geometry, metallic seamed football/trophy, parented feed typography, three cameras and preserved cuts at frames 357/572. Nine 1920x1080 diagnostic frames actually rendered with Blender 4.5.13 LTS on Windows; motion and PNG integrity checks passed. Full HD rendering and native Mac execution remain pending.
 - The first Mac build on Blender 5.2.0 exposed its renamed Eevee engine identifier (`BLENDER_EEVEE` instead of Blender 4.5's `BLENDER_EEVEE_NEXT`). Runtime engine discovery now supports both and fails clearly if Eevee is unavailable. The compatibility path is unit-tested and Windows 4.5 is rechecked; Mac 5.2 still needs the creator's rerun after pulling the fix.
@@ -44,6 +46,9 @@ Canonical folder: `episodes/002-ronaldo-hate-psychology/`. Folder ID 002 is reta
 - Full suite: **102 passed, 92% studio coverage** on 2026-09-09. Includes real full-video polish/audio preservation, review freshness/path checks, memory isolation, PowerShell/Python task transport and dashboard models. Isolated Chromium browser QA also passes; JavaScript syntax, Python compile and diff whitespace checks pass. Earlier dependency checks clean; no packages added this pass.
 - Hermes 0.21.0 installed/CLI checked in isolated env. ViMax dependencies/runtime import/CLI and web build verified. Provider authentication/generation not performed.
 - Explicit creator corrections saved and included in future context handoffs; no automatic model retraining or causal audience learning claimed.
+
+- Floating-opening verification: 159 tests and 11 subtests passed, 93% studio coverage; source compilation, Mac packet parity and Bash syntax passed. Five 960x540 frames rendered; middle frame visually inspected. Full sequence and Mac execution remain unverified.
+- Floating-opening release audit: no new Python dependencies or external assets. The existing Windows environment audit reports vulnerabilities in its old pip 25.0.1 installer (fixes through 26.2); that environment is not shipped to the Mac. Dependency remediation is outstanding; the code-only Blender packet requires no pip.
 
 ## Next actions
 

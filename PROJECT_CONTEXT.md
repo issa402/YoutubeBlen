@@ -2,6 +2,8 @@
 
 ## Channel identity
 
+Latest visual direction (2026-09-15): the creator requested a cartoon Messi floating above a city with crossed arms, based on an attached superhero pose. New standalone 12-second scene: `episodes/002-ronaldo-hate-psychology/mac/messi-floating/`. Its README is the entry point for this clip. The existing 30-second opening below remains available for editing; its voice/finishing timing is not automatically compatible with the new 12-second clip.
+
 Current upgraded render packet: `episodes/002-ronaldo-hate-psychology/mac/opening-hd/`. Follow `tools/MAC_START_HERE.md` for the user-selected `https://github.com/issa402/YoutubeBlen.git` clone/pull workflow. Nine native 1080p samples are verified; full HD rendering remains pending. Local neural opening voice and v2 ASR captions are ready under `.studio/`; Windows finishing commands are in `tools/HD_FINISHING.md`. Imported `external/blenderyt/` is ordinary preserved reference source, not a required submodule.
 
 Current first release: `episodes/002-ronaldo-hate-psychology/`, titled "Why Do Some Messi Fans Hate Ronaldo More Than They Love Messi?" Folder ID 002 is historical; release order is 1. Its CREATOR_TAKE.md preserves the creator's direction, and its master script/source register are the working authority. Episode 001 remains a separate earlier draft.

@@ -1,5 +1,7 @@
 # Start the Blender opening on your Mac
 
+For the latest **floating Messi cartoon opening**, follow [the new packet instructions](../episodes/002-ronaldo-hate-psychology/mac/messi-floating/README.md). That clip is 12 seconds and opens directly in a clean camera view. The guide below applies to the earlier three-set 30-second opening.
+
 Repository: https://github.com/issa402/YoutubeBlen.git
 
 The Mac runs Git and Blender. The commands below go in **Terminal**, not Blender's Python console. They generate the scene from code; you do not need to copy or paste the Python script into Blender. Use the employer-approved Blender/Git installation and transfer location.

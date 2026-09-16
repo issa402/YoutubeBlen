@@ -1,5 +1,12 @@
 # Decision Log
 
+## 2026-09-15 - Illustrated floating Messi opening
+
+**Decision:** Follow the creator's supplied floating superhero reference with an original stylized Messi illustration, crossed arms, Argentina-inspired kit, blue cape and layered city. Use editable polygon/ink layers in Blender, deterministic cape vertex animation and a slow orthographic push-in. This is 2.5D artwork, not a fully sculpted likeness. The fictional pose is a visual metaphor, not a factual event.
+
+**Delivery:** New standalone `mac/messi-floating/` packet, 12 seconds at 24 fps, clean camera viewport. Preserve the previous 30-second scene for editing. The existing 30-second narration and finish-opening contract do not automatically fit this shorter clip; editorial assembly remains separate. Five diagnostic frames and structured motion are verified on Windows; Mac execution and full sequence render remain pending.
+
+
 ## 2026-09-14 - Runtime-selected Eevee engine
 
 **Decision:** Select Eevee from the identifiers Blender exposes at runtime, preferring `BLENDER_EEVEE_NEXT` for Blender 4.x and falling back to `BLENDER_EEVEE` for Blender 5.x. Fail with the available engine list when neither exists.
