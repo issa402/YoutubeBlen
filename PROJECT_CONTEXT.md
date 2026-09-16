@@ -2,7 +2,7 @@
 
 ## Channel identity
 
-Newest visual request: `mac/superhero-crossover/` under episode 002. Four-shot 4.333-second adaptation of the creator's video: Omni-Man Messi, Ninja Turtle Mbappe crouch/point, Superman-style Ronaldo doorway reveal. This supersedes the single floating shot as the current visual request; earlier packets remain available.
+Newest visual request: `mac/superhero-crossover/` under episode 002. Revised eight-second four-shot adaptation of the creator's video: Omni-Man Messi, Ninja Turtle Mbappe crouch/side-profile point, Superman-style Ronaldo doorway reveal. This supersedes the single floating shot as the current visual request; earlier packets remain available.
 
 Latest visual direction (2026-09-15): the creator requested a cartoon Messi floating above a city with crossed arms, based on an attached superhero pose. New standalone 12-second scene: `episodes/002-ronaldo-hate-psychology/mac/messi-floating/`. Its README is the entry point for this clip. The existing 30-second opening below remains available for editing; its voice/finishing timing is not automatically compatible with the new 12-second clip.
 

@@ -1,5 +1,14 @@
 # Decision Log
 
+## 2026-09-15 - Longer sequence and readable profile gesture
+
+**Decision:** Creator rejected the oversized hand and generic likenesses. Extend to eight seconds with cuts at frames 45/88/133. Preserve reference shot order while honoring the explicit side-profile correction. Replace the giant hand with a proportionate connected pointing arm, animated through a bounded mesh deformation; assert that the profile head remains unchanged. Messi and Ronaldo receive distinct smooth cel facial drawings.
+
+**Assets:** Two generated Mbappe PNG cutouts are versioned with source, alpha-composited in Blender and packed into saved scenes; source fingerprints include asset bytes. Generated Messi/Ronaldo sprite requests were rejected by the image service, so those characters retain manually revised native artwork. Do not represent these faces as exact reproductions or the limited 2.5D staging as full character animation.
+
+
+
+
 ## 2026-09-15 - Four-shot superhero crossover
 
 **Decision:** Recreate the creator-supplied screen recording's shot order and approximate timing: Messi as Omni-Man, Mbappe as a Ninja Turtle replacing Spider-Man, and Cristiano Ronaldo in a Superman-style role replacing Thor. The source is 4.334 seconds; use 104 frames at 24 fps (4.333 seconds) and cuts at 24/47/72. Retain a large foreshortened pointing hand followed by the doorway reveal.

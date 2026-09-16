@@ -1,6 +1,6 @@
 # Current Status
 
-Last updated: 2026-09-15
+Last updated: 2026-09-16
 
 ## Current phase
 
@@ -15,6 +15,8 @@ Repository: `https://github.com/issa402/YoutubeBlen.git`, branch `main`. Mac ent
 Canonical folder: `episodes/002-ronaldo-hate-psychology/`. Folder ID 002 is retained; release order is 1. Creator take, master production script, source register, claim ledger and Shorts are saved there. Episode 001 remains an earlier separate draft.
 
 ## Completed
+
+- Crossover revision: 192 frames / eight seconds, separate Messi/Ronaldo cel faces, matched generated Mbappe crouch/profile cutouts, and a proportionate connected pointing arm whose vertex animation leaves the head fixed. Assets are versioned and packed into the .blend. Complete 1280x720 preview: `.studio/renders/crossover-v4/superhero-crossover.mp4`; all 192 frames decoded and final shots inspected. 164 tests and 11 subtests pass (93% studio coverage). Mac/1080p execution remains unverified. Old four-second frames cannot resume under new source; use a fresh output directory.
 
 - New `mac/superhero-crossover/` packet recreates the creator's supplied 4.334-second recording as 104 frames / 24 fps: Omni-Man Messi hover, Ninja Turtle Mbappe crouch, exaggerated pointing-hand close-up, then Superman-style Ronaldo doorway reveal. Default 1920x1080; original editable 2.5D polygons. Ten diagnostic frames rendered; camera cuts verified at 24, 47 and 72. Complete 960x540 preview rendered and encoded at `.studio/renders/crossover-v2/superhero-crossover.mp4`; all 104 frames decoded, corrected shot images visually inspected. Full suite: 163 tests and 11 subtests passed, 93% studio coverage. Mac execution and native 1080p render remain unverified. Existing local pip audit findings remain unchanged; this packet adds no dependencies.
 

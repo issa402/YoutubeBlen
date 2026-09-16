@@ -1,5 +1,5 @@
 """Four-shot football/superhero crossover, recreated from the supplied clip.
-Editable 2.5D cel artwork. 104 frames at 24 fps. No external assets.
+Editable 2.5D cel artwork. 192 frames at 24 fps. No external assets.
 """
 import argparse
 import json
@@ -10,6 +10,8 @@ import bpy
 from mathutils import Vector
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 import messi_floating as art
+from crossover_faces import redraw
+from crossover_sprites import sprite
 from crossover_spec import FPS, FRAME_END, SHOTS, PREVIEWS, pose_at
 from hd_spec import select_eevee_engine, remaining_frames, render_fingerprint, validate_png
 
@@ -99,6 +101,7 @@ def hero(offset,ronaldo=False):
         art.rect('Super belt',-.69,3.33,1.38,.17,'gold',-.29,root)
         line('Ronaldo jaw',[(-.32,5.60),(-.16,5.41),(.06,5.37),(.24,5.48),(.34,5.69)],-.43,.016,'shade',root)
         line('Ronaldo smile',[(-.13,5.69),(.04,5.65),(.17,5.70)],-.44,.016,'beard',root)
+    redraw(root,ronaldo)
     badge(root,ronaldo)
     capes=cape(root,offset)
     root.location.x=offset
@@ -178,20 +181,8 @@ def turtle(offset,point=False):
 
 
 def pointing_hand(offset):
-    root=turtle(offset,True)
-    root.location.x+=3.25
-    root.location.z=-.35
-    root.rotation_euler.y=-.30
-    hand=art.empty('Mbappe pointing hand')
-    hand.location.x=offset
-    # Forearm enters from screen right; exaggerated finger projects upper-left.
-    poly('Point forearm',[(2.5,2.6),(4.8,1.85),(5.5,2.9),(2.8,3.66)],'green',-.8,hand)
-    poly('Point wrist band',[(2.48,2.57),(3.14,2.37),(3.63,3.38),(2.85,3.67)],'mask',-.85,hand)
-    poly('Point palm',[(-.21,3.9),(1.56,4.03),(2.96,3.48),(2.62,2.53),(1.2,2.17),(.06,2.52),(-.43,3.05)],'green',-.9,hand)
-    poly('Extended index',[(-.10,3.30),(-1.04,4.28),(-2.48,5.30),(-3.02,5.27),(-3.2,4.93),(-3.02,4.62),(-1.53,3.56),(-.69,2.93)],'greenlight',-1,hand)
-    poly('Folded fingers',[(.36,3.49),(1.04,3.64),(1.79,3.28),(2.06,2.85),(1.62,2.41),(.88,2.51),(.31,2.97)],'greenshade',-1.03,hand)
-    line('Finger joints',[(.63,3.27),(1.17,3.37),(1.58,2.97),(1.24,2.75)],-1.07,.03,'ink',hand)
-    return root,hand
+    hand=sprite('Mbappe side-profile pointing','mbappe-profile.png',offset,10,6.667,rig=True)
+    return hand,hand
 
 
 def camera(name,offset,z,scale,start):
@@ -218,10 +209,10 @@ def build(resolution):
     scene.render.image_settings.file_format='PNG';scene.render.image_settings.color_mode='RGB';scene.render.image_settings.color_depth='8'
     scene.view_settings.view_transform='Standard';scene.view_settings.look='None'
     city(0);messi,mcape=hero(0)
-    room(35);mbappe=turtle(35)
+    room(35);mbappe=sprite('Mbappe crouch','mbappe-crouch.png',35,4.1,6.15)
     room(70);pointbody,hand=pointing_hand(70)
     room(105,True);ronaldo,rcape=hero(105,True)
-    cameras=[camera('messi',0,3.5,13.7,1),camera('mbappe',35,2.5,9.7,24),camera('point',70,3.55,10.9,47),camera('ronaldo',105,3,17,72)]
+    cameras=[camera('messi',0,3.5,13.4,1),camera('mbappe',35,3.0,11.5,45),camera('point',70,3.4,12.4,88),camera('ronaldo',105,3.4,14.1,133)]
     # Ronaldo emerges from silhouette into color, as in the doorway reveal.
     reveal_materials={}
     for obj in ronaldo.children:
@@ -237,7 +228,11 @@ def build(resolution):
         messi.location.z=pose['hover'];messi.keyframe_insert('location',frame=frame)
         mbappe.location.z=.035*math.sin(frame*.3);mbappe.keyframe_insert('location',frame=frame)
         extension=pose['point_extension']
-        hand.scale=(.86+.14*extension,1,.86+.14*extension);hand.keyframe_insert('scale',frame=frame)
+        # Profile hand gesture is baked into the sprite mesh, keeping the face still.
+        cameras[0].data.ortho_scale=13.4-.5*min(1,(frame-1)/43)
+        cameras[0].data.keyframe_insert('ortho_scale',frame=frame)
+        cameras[3].data.ortho_scale=14.1-.6*pose['reveal']
+        cameras[3].data.keyframe_insert('ortho_scale',frame=frame)
         for mat in reveal_materials.values():
             emit=next(n for n in mat.node_tree.nodes if n.type=='EMISSION')
             emit.inputs['Strength'].default_value=.025+.975*pose['reveal']
@@ -258,14 +253,17 @@ def inspect(scene,messi,hand):
         scene.frame_set(frame);bpy.context.view_layer.update()
         expected=pose_at(frame)['shot']+' camera'
         assert scene.camera.name==expected,(frame,scene.camera.name,expected)
-        samples.append({'frame':frame,'camera':scene.camera.name,'messi_z':messi.location.z,'point_scale':hand.scale.x})
+        samples.append({'frame':frame,'camera':scene.camera.name,'messi_z':messi.location.z,'point_tip_z':hand.data.vertices[13*41+2].co.z,'profile_head':list(hand.data.vertices[20*41+27].co)})
     assert samples[0]['messi_z']!=samples[1]['messi_z']
+    point_samples=[s for s in samples if s['camera']=='point camera']
+    assert max(s['point_tip_z'] for s in point_samples)-min(s['point_tip_z'] for s in point_samples)>.5
+    assert len({tuple(s['profile_head']) for s in point_samples})==1, 'Arm rig distorted the face'
     scene.frame_set(1)
     return {'validated':True,'frames':FRAME_END,'fps':FPS,'duration_seconds':FRAME_END/FPS,
             'resolution':[scene.render.resolution_x,scene.render.resolution_y],
             'shots':SHOTS,'motion_samples':samples,'format':'original layered 2.5D recreation',
             'character_mapping':{'Omni-Man':'Messi','Spider-Man':'Mbappe Ninja Turtle','Thor':'Ronaldo Superman'},
-            'external_assets':[],'render_complete':False}
+            'bundled_assets':['assets/mbappe-profile.png','assets/mbappe-crouch.png'],'render_complete':False}
 
 
 def main():
@@ -278,7 +276,8 @@ def main():
     if any(not 64<=n<=4096 for n in args.resolution):parser.error('resolution must be between 64 and 4096')
     if args.resume and not args.render:parser.error('--resume requires --render')
     out=args.output.resolve();out.mkdir(parents=True,exist_ok=True)
-    sources=[Path(__file__).with_name(n) for n in ('superhero_crossover.py','crossover_spec.py','messi_floating.py','floating_spec.py','hd_spec.py')]
+    sources=[Path(__file__).with_name(n) for n in ('superhero_crossover.py','crossover_spec.py','messi_floating.py','floating_spec.py','hd_spec.py','crossover_faces.py','crossover_sprites.py')]
+    sources.extend(sorted((Path(__file__).resolve().parent/'assets').glob('mbappe-*.png')))
     fingerprint=render_fingerprint(sources,{'resolution':args.resolution,'frames':FRAME_END})
     folder=out/('previews' if args.preview else 'frames');ledger=out/'render-state.json'
     todo=remaining_frames(folder,ledger,fingerprint,args.resolution,args.resume,end=FRAME_END) if args.render else list(PREVIEWS) if args.preview else []

@@ -1,15 +1,15 @@
 # Messi / Mbappe / Ronaldo superhero crossover
 
-Original editable 2.5D recreation of the supplied approximately 4.334-second reference. 104 frames at 24 fps (4.333 seconds), 1920x1080 by default. Silent; source recording audio and UI are not embedded.
+Revised 8-second adaptation of the supplied approximately 4.334-second reference. 192 frames at 24 fps, 1920x1080 by default. Silent; source recording audio and UI are not embedded.
 
 | Frames | Replacement shot |
 | --- | --- |
-| 1-23 | Messi as Omni-Man, red/white suit, folded arms, hovering over city |
-| 24-46 | Mbappe as a Ninja Turtle, crouched on a concrete floor |
-| 47-71 | Foreshortened turtle hand pointing toward the next reveal |
-| 72-104 | Ronaldo in Superman-style blue suit, red cape and seven crest, emerging from shadow in doorway |
+| 1-44 | Messi as Omni-Man, red/white suit, folded arms, hovering over city |
+| 45-87 | Mbappe as a Ninja Turtle, crouched on a concrete floor |
+| 88-132 | Side-profile Mbappe with a proportionate arm lifting to point toward the next reveal |
+| 133-192 | Ronaldo in Superman-style blue suit, red cape and seven crest, emerging from shadow in doorway |
 
-The reference's shot order, approximate timing and compositions guide this scene. Artwork is an original stylized reconstruction, not pixel-identical footage or a realistic 3D face scan. Character models use layered polygons and ink curves; no third-party downloads are needed.
+The reference's shot order, compositions and shot order, with longer holds guide this scene. Artwork is an original stylized reconstruction, not pixel-identical footage or a realistic 3D face scan. Messi and Ronaldo have separate editable cel face drawings. Mbappe uses two bundled generated cutouts with a vertex-animated side-profile arm. Images are packed into the .blend. No downloads or packages are needed on the Mac.
 
 ## On the Mac
 
@@ -23,7 +23,7 @@ bash run.sh build
 open -a Blender superhero-crossover.blend
 ```
 
-The Layout viewport opens through the active camera, with overlays hidden. Click the timeline Play triangle. Camera cuts happen automatically. Frames run 1-104. Use View > Cameras > Active Camera if you leave camera view. This packet is separate from the previous openings.
+The Layout viewport opens through the active camera, with overlays hidden. Click the timeline Play triangle. Camera cuts happen automatically. Frames run 1-192. Use View > Cameras > Active Camera if you leave camera view. This packet is separate from the previous openings.
 
 ```bash
 bash run.sh preview
@@ -31,7 +31,7 @@ open previews
 bash run.sh render
 ```
 
-Preview renders ten frames around all cuts and gestures. Render writes 104 silent PNGs under frames/. Use `bash run.sh resume` for an interrupted render with unchanged code/settings. Source fingerprints and PNG integrity protect resume; changed source requires a fresh output folder. Keep a failed run's frames and log for diagnosis. The launcher prints the error automatically.
+Preview renders ten frames around all cuts and gestures. Render writes 192 silent PNGs under frames/. Use `bash run.sh resume` for an interrupted render with unchanged code/settings. Source fingerprints and PNG integrity protect resume; changed source requires a fresh output folder. Keep a failed run's frames and log for diagnosis. The launcher prints the error automatically.
 
 To choose a fresh output folder or lower resolution:
 
@@ -40,3 +40,13 @@ To choose a fresh output folder or lower resolution:
 ```
 
 Generated .blend, frames, previews, logs and motion reports remain local. The .blend contains the complete animation; the Python files generate it. Playback speed in the viewport depends on the machine. Windows rendered verification and Mac execution are reported separately in CURRENT_STATUS.md.
+
+## Updating from the old four-second render
+
+`build` creates the revised .blend; reopen it rather than replaying the old file already open in Blender. Existing old frame/preview directories cannot be resumed with revised source. Use a fresh output location for the new render:
+
+```bash
+"/Applications/Blender.app/Contents/MacOS/Blender" --background --python-exit-code 1 --python superhero_crossover.py -- --output "$HOME/Movies/crossover-eight-seconds" --render
+```
+
+The two PNG character assets add a few MB to the Git pull. The pointing arm is a controlled deformation of the cutout; the face stays fixed. This is limited 2.5D animation, not full skeletal character acting or a pixel-perfect replica. The facial drawings are caricatures whose likeness should be reviewed visually.
