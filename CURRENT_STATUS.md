@@ -16,6 +16,8 @@ Canonical folder: `episodes/002-ronaldo-hate-psychology/`. Folder ID 002 is reta
 
 ## Completed
 
+- Mac Blender 5.2 crash compatibility fix: the creator confirmed Blender itself starts, while the revised scene aborted with native SIGTRAP/exit 133 before a Python traceback. Ronaldo's 76 validated mesh triangles are now stored explicitly instead of invoking Blender's runtime polygon tessellator. Clean factory-started build and focused regression tests pass on Windows; the Mac rerun remains the final confirmation.
+
 - Shared-art revision: the creator's supplied Ronaldo/Superman illustration is preserved byte-for-byte as `ronaldo-approved.png`, mapped onto an outlined Blender mesh. Messi/Omni-Man and both Mbappe poses now use matching cel artwork. Ten 720p diagnostic frames rendered and visually checked together. Native 1920x1080 eight-second render completed: `.studio/renders/crossover-v6-hd/superhero-crossover.mp4`. All 192 frames decoded at 24 fps; silent preview. 164 tests and 11 subtests passed (93% studio coverage). Actual Mac execution remains unverified.
 
 - Crossover revision: 192 frames / eight seconds, separate Messi/Ronaldo cel faces, matched generated Mbappe crouch/profile cutouts, and a proportionate connected pointing arm whose vertex animation leaves the head fixed. Assets are versioned and packed into the .blend. Complete 1280x720 preview: `.studio/renders/crossover-v4/superhero-crossover.mp4`; all 192 frames decoded and final shots inspected. 164 tests and 11 subtests pass (93% studio coverage). Mac/1080p execution remains unverified. Old four-second frames cannot resume under new source; use a fresh output directory.

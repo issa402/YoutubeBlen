@@ -1,5 +1,11 @@
 # Decision Log
 
+## 2026-09-16 - Precomputed Ronaldo mesh faces for Blender 5.2
+
+**Decision:** Store the approved Ronaldo silhouette's 76 validated triangle faces in source. Do not call Blender's polygon tessellator while constructing this asset.
+
+**Reason:** The first Mac run of the shared-art revision aborted Blender 5.2 with SIGTRAP/exit 133 before Python produced a traceback, while Blender itself passed a factory-startup check. Removing the only newly introduced native geometry operation preserves identical geometry and avoids that version-sensitive path. Windows clean-start construction and regression checks pass; Mac confirmation is still required.
+
 ## 2026-09-16 - Shared cast art from supplied Ronaldo reference
 
 **Decision:** Treat the user-provided Ronaldo/Superman illustration as the approved visual reference. Preserve its original pixels on a manually outlined Blender mesh; no substitute face. Generate Messi/Omni-Man and Mbappe crouch/profile illustrations in the same clean cel style. Maintain the eight-second four-shot timing, profile arm gesture and clean camera viewport.
