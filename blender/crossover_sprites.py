@@ -28,7 +28,16 @@ def sprite(name,asset,offset,width,height,rig=False):
             uv.data[index].uv=((vi%(nx+1))/nx,(vi//(nx+1))/nz)
     obj=bpy.data.objects.new(name,mesh);bpy.context.collection.objects.link(obj);obj.location.x=offset
     mesh.materials.append(mat)
-    if rig:
+    if rig == 'cape':
+        for frame in range(1,FRAME_END+1,6):
+            phase=pose_at(frame)['cape_phase']
+            for index,(x,y,z) in enumerate(vertices):
+                u=x/width+.5;v=z/height
+                edge=max(0,min(1,(abs(u-.5)-.17)/.17))
+                weight=edge*max(0,min(1,(.73-v)/.5))
+                mesh.vertices[index].co=(x+.10*math.sin(phase-v*3)*weight,y,z+.045*math.sin(phase+u*3)*weight)
+                mesh.vertices[index].keyframe_insert('co',frame=frame)
+    elif rig:
         for frame in (1,88,96,104,112,132,FRAME_END):
             angle=.20*(1-pose_at(frame)['point_extension'])
             for index,(x,y,z) in enumerate(vertices):

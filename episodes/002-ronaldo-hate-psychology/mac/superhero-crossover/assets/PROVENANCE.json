@@ -1,0 +1,25 @@
+{
+  "style_reference": "Creator-supplied Ronaldo/Superman illustration",
+  "assets": [
+    {
+      "file": "ronaldo-approved.png",
+      "sha256": "90d814b78d4a975aebddc16cb4c347bf504bf105bade6db07bc830272fd80b27",
+      "origin": "Unmodified creator-supplied image"
+    },
+    {
+      "file": "messi-omni-matched.png",
+      "sha256": "8602fa01adccdc307ec4a166541f50ba7ddaa2730818306b431a04275c7b6c77",
+      "origin": "Generated cel illustration guided by supplied style reference"
+    },
+    {
+      "file": "mbappe-crouch-matched.png",
+      "sha256": "4c887af54a08c4db02b4cdc1fae94d761a1987339f2bc15d18ca4a0a9da9364c",
+      "origin": "Generated cel illustration guided by supplied style reference"
+    },
+    {
+      "file": "mbappe-profile-matched.png",
+      "sha256": "25d8bb465a0eec4f2c86fac5b23c703b8109282c8b7a022e3594e20a54ce2a24",
+      "origin": "Generated cel illustration guided by supplied style reference"
+    }
+  ]
+}

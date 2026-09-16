@@ -9,7 +9,11 @@ Revised 8-second adaptation of the supplied approximately 4.334-second reference
 | 88-132 | Side-profile Mbappe with a proportionate arm lifting to point toward the next reveal |
 | 133-192 | Ronaldo in Superman-style blue suit, red cape and seven crest, emerging from shadow in doorway |
 
-The reference's shot order, compositions and shot order, with longer holds guide this scene. Artwork is an original stylized reconstruction, not pixel-identical footage or a realistic 3D face scan. Messi and Ronaldo have separate editable cel face drawings. Mbappe uses two bundled generated cutouts with a vertex-animated side-profile arm. Images are packed into the .blend. No downloads or packages are needed on the Mac.
+The reference's shot order, compositions and shot order, with longer holds guide this scene. Artwork is an original stylized reconstruction, not pixel-identical footage or a realistic 3D face scan. Ronaldo uses the creator's supplied illustration directly, UV-mapped to a manually outlined silhouette. Messi and both Mbappe poses use matching generated cel illustrations. The Messi cape and side-profile pointing arm use bounded vertex animation. Images are packed into the .blend. No downloads or packages are needed on the Mac.
+
+## Current artwork
+
+Active images: `ronaldo-approved.png`, `messi-omni-matched.png`, `mbappe-crouch-matched.png`, `mbappe-profile-matched.png`. Earlier assets remain for prior versions. Git transfers these images with the code; Blender requires no downloads.
 
 ## On the Mac
 
@@ -49,4 +53,4 @@ Generated .blend, frames, previews, logs and motion reports remain local. The .b
 "/Applications/Blender.app/Contents/MacOS/Blender" --background --python-exit-code 1 --python superhero_crossover.py -- --output "$HOME/Movies/crossover-eight-seconds" --render
 ```
 
-The two PNG character assets add a few MB to the Git pull. The pointing arm is a controlled deformation of the cutout; the face stays fixed. This is limited 2.5D animation, not full skeletal character acting or a pixel-perfect replica. The facial drawings are caricatures whose likeness should be reviewed visually.
+The bundled PNG character assets add several MB to the Git pull. The pointing arm is a controlled deformation of the cutout; the face stays fixed. This is limited 2.5D animation, not full skeletal character acting or a pixel-perfect replica. Ronaldo preserves the supplied design; the matching cast illustrations should be judged visually against that reference.

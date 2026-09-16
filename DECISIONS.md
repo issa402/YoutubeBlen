@@ -1,5 +1,12 @@
 # Decision Log
 
+## 2026-09-16 - Shared cast art from supplied Ronaldo reference
+
+**Decision:** Treat the user-provided Ronaldo/Superman illustration as the approved visual reference. Preserve its original pixels on a manually outlined Blender mesh; no substitute face. Generate Messi/Omni-Man and Mbappe crouch/profile illustrations in the same clean cel style. Maintain the eight-second four-shot timing, profile arm gesture and clean camera viewport.
+
+**Implementation:** Version and pack all artwork. Deform only outer lower portions of the Messi cape and the Mbappe pointing arm; retain the profile head stability check. The image service rejected Ronaldo background removal, so the original image is directly UV-mapped to its silhouette. Source and asset fingerprints protect resume; old renders require a fresh output directory. The generated characters approximate the shared style, while Ronaldo uses supplied artwork.
+
+
 ## 2026-09-15 - Longer sequence and readable profile gesture
 
 **Decision:** Creator rejected the oversized hand and generic likenesses. Extend to eight seconds with cuts at frames 45/88/133. Preserve reference shot order while honoring the explicit side-profile correction. Replace the giant hand with a proportionate connected pointing arm, animated through a bounded mesh deformation; assert that the profile head remains unchanged. Messi and Ronaldo receive distinct smooth cel facial drawings.

@@ -11,6 +11,7 @@ from mathutils import Vector
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 import messi_floating as art
 from crossover_faces import redraw
+from crossover_approved import approved_ronaldo
 from crossover_sprites import sprite
 from crossover_spec import FPS, FRAME_END, SHOTS, PREVIEWS, pose_at
 from hd_spec import select_eevee_engine, remaining_frames, render_fingerprint, validate_png
@@ -181,7 +182,7 @@ def turtle(offset,point=False):
 
 
 def pointing_hand(offset):
-    hand=sprite('Mbappe side-profile pointing','mbappe-profile.png',offset,10,6.667,rig=True)
+    hand=sprite('Mbappe side-profile pointing','mbappe-profile-matched.png',offset,10,6.667,rig=True)
     return hand,hand
 
 
@@ -208,14 +209,14 @@ def build(resolution):
     scene.render.fps=FPS;scene.frame_start=1;scene.frame_end=FRAME_END
     scene.render.image_settings.file_format='PNG';scene.render.image_settings.color_mode='RGB';scene.render.image_settings.color_depth='8'
     scene.view_settings.view_transform='Standard';scene.view_settings.look='None'
-    city(0);messi,mcape=hero(0)
-    room(35);mbappe=sprite('Mbappe crouch','mbappe-crouch.png',35,4.1,6.15)
+    city(0);messi=sprite('Messi matched Omni-Man','messi-omni-matched.png',0,4.9,7.35,rig='cape')
+    room(35);mbappe=sprite('Mbappe crouch','mbappe-crouch-matched.png',35,4.1,6.15)
     room(70);pointbody,hand=pointing_hand(70)
-    room(105,True);ronaldo,rcape=hero(105,True)
-    cameras=[camera('messi',0,3.5,13.4,1),camera('mbappe',35,3.0,11.5,45),camera('point',70,3.4,12.4,88),camera('ronaldo',105,3.4,14.1,133)]
+    room(105,True);ronaldo=approved_ronaldo(105)
+    cameras=[camera('messi',0,3.7,14.3,1),camera('mbappe',35,3.0,11.5,45),camera('point',70,3.4,12.4,88),camera('ronaldo',105,3.6,14.5,133)]
     # Ronaldo emerges from silhouette into color, as in the doorway reveal.
     reveal_materials={}
-    for obj in ronaldo.children:
+    for obj in [ronaldo, *ronaldo.children]:
         if obj.type in ('MESH','CURVE'):
             for slot in obj.material_slots:
                 old=slot.material
@@ -229,9 +230,9 @@ def build(resolution):
         mbappe.location.z=.035*math.sin(frame*.3);mbappe.keyframe_insert('location',frame=frame)
         extension=pose['point_extension']
         # Profile hand gesture is baked into the sprite mesh, keeping the face still.
-        cameras[0].data.ortho_scale=13.4-.5*min(1,(frame-1)/43)
+        cameras[0].data.ortho_scale=14.3-.5*min(1,(frame-1)/43)
         cameras[0].data.keyframe_insert('ortho_scale',frame=frame)
-        cameras[3].data.ortho_scale=14.1-.6*pose['reveal']
+        cameras[3].data.ortho_scale=14.5-.6*pose['reveal']
         cameras[3].data.keyframe_insert('ortho_scale',frame=frame)
         for mat in reveal_materials.values():
             emit=next(n for n in mat.node_tree.nodes if n.type=='EMISSION')
@@ -263,7 +264,7 @@ def inspect(scene,messi,hand):
             'resolution':[scene.render.resolution_x,scene.render.resolution_y],
             'shots':SHOTS,'motion_samples':samples,'format':'original layered 2.5D recreation',
             'character_mapping':{'Omni-Man':'Messi','Spider-Man':'Mbappe Ninja Turtle','Thor':'Ronaldo Superman'},
-            'bundled_assets':['assets/mbappe-profile.png','assets/mbappe-crouch.png'],'render_complete':False}
+            'bundled_assets':['assets/mbappe-profile-matched.png','assets/mbappe-crouch-matched.png','assets/messi-omni-matched.png','assets/ronaldo-approved.png'],'render_complete':False}
 
 
 def main():
@@ -276,8 +277,8 @@ def main():
     if any(not 64<=n<=4096 for n in args.resolution):parser.error('resolution must be between 64 and 4096')
     if args.resume and not args.render:parser.error('--resume requires --render')
     out=args.output.resolve();out.mkdir(parents=True,exist_ok=True)
-    sources=[Path(__file__).with_name(n) for n in ('superhero_crossover.py','crossover_spec.py','messi_floating.py','floating_spec.py','hd_spec.py','crossover_faces.py','crossover_sprites.py')]
-    sources.extend(sorted((Path(__file__).resolve().parent/'assets').glob('mbappe-*.png')))
+    sources=[Path(__file__).with_name(n) for n in ('superhero_crossover.py','crossover_spec.py','messi_floating.py','floating_spec.py','hd_spec.py','crossover_faces.py','crossover_sprites.py','crossover_approved.py')]
+    sources.extend(sorted((Path(__file__).resolve().parent/'assets').glob('*.png')))
     fingerprint=render_fingerprint(sources,{'resolution':args.resolution,'frames':FRAME_END})
     folder=out/('previews' if args.preview else 'frames');ledger=out/'render-state.json'
     todo=remaining_frames(folder,ledger,fingerprint,args.resolution,args.resume,end=FRAME_END) if args.render else list(PREVIEWS) if args.preview else []

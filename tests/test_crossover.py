@@ -17,13 +17,13 @@ class CrossoverTests(unittest.TestCase):
  def test_packet_parity(self):
   root=Path(__file__).resolve().parents[1]
   packet=root/'episodes/002-ronaldo-hate-psychology/mac/superhero-crossover'
-  for name in ('superhero_crossover.py','crossover_spec.py','messi_floating.py','floating_spec.py','hd_spec.py','crossover_faces.py','crossover_sprites.py'):
+  for name in ('superhero_crossover.py','crossover_spec.py','messi_floating.py','floating_spec.py','hd_spec.py','crossover_faces.py','crossover_sprites.py','crossover_approved.py'):
    self.assertEqual((root/'blender'/name).read_bytes(),(packet/name).read_bytes())
 
  def test_bundled_artwork_matches_packet(self):
   root=Path(__file__).resolve().parents[1]
   packet=root/'episodes/002-ronaldo-hate-psychology/mac/superhero-crossover'
-  for name in ('mbappe-profile.png','mbappe-crouch.png'):
+  for name in ('mbappe-profile-matched.png','mbappe-crouch-matched.png','messi-omni-matched.png','ronaldo-approved.png'):
    source=(root/'blender/assets'/name).read_bytes()
    self.assertTrue(source.startswith(b'\x89PNG\r\n\x1a\n'))
    self.assertEqual(source,(packet/'assets'/name).read_bytes())
