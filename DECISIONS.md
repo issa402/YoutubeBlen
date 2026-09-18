@@ -1,4 +1,7 @@
 # Decision Log
+## 2026-09-17 - Reference-length action adaptation
+
+Use all 260 source frames at their actual 30 fps cadence. Preserve reference main cut boundaries; subdivide the opening flight for camera staging. Keep previous eight-second and 5.4-second drafts separate. Version the generated toward-camera pointing/tumbling artwork and reconstructed city/warehouse plates; retain original supplied Ronaldo artwork. Native sleeve/elbow and cape deformation provide deterministic movement. This is a layered 2.5D adaptation with explicit limits, not exact footage replacement. Mac execution remains unverified and prior triangulation crash attribution remains only a hypothesis.
 
 ## 2026-09-16 - Precomputed Ronaldo mesh faces for Blender 5.2
 

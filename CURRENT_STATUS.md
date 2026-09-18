@@ -88,3 +88,14 @@ Canonical folder: `episodes/002-ronaldo-hate-psychology/`. Folder ID 002 is reta
 - Exact meaning of the proposed "2026 was robbed so Lamine and Messi played" claim is unclear.
 - Exact match/minute/context for the alleged 2022 Mac Allister handball needs identification.
 - An employer-approved method for retrieving Mac render previews must be confirmed.
+
+## September 16 latest video adaptation — incomplete visual match
+
+New `blender/reference_crossover.py` and matching Mac packet retain the current cast and add the reference's five-shot order, 162 frames at 30 fps. First diagnostic pass rendered; corrected a flash plane intersecting the pointing sprite. Full 720p comparison rendered and decoded: `.studio/renders/reference-v3/reference-comparison.mp4`, all 162 frames at 30 fps verified. Background generation hit its usage limit after one doorway plate; the city is a crop of that plate and the warehouse is procedural. The toward-camera pointing pose is not achieved: the existing profile sprite remains. Exact background/motion match requires further asset work. See the packet's `REFERENCE_SEQUENCE.md`.
+
+Mac crash cause remains unconfirmed. Earlier statements that runtime tessellation caused SIGTRAP were hypotheses, not established diagnoses. The user reports continued crashes, potentially including the factory-startup command; a native Mac crash report is needed.
+## September 17 extended action sequence
+
+The latest supplied reference has 260 decoded frames at uniform 30 fps (8.6667 seconds). `blender/action_crossover.py` and the matching Mac packet implement the full timeline: strike, tumble, impact cutaway, landing/foreground boots, hover, crouch, foreshortened point, lightning reveal. New generated point/tumble sprites preserve the approved character direction; city and warehouse plates reconstruct the reference framing. Native sleeve/elbow articulation supplements the approved Messi artwork because the image service rejected the strike pose request. These are approximate 2.5D character performances, not frame-perfect motion transfer.
+
+Native 1080p full render completed and inspected at `.studio/renders/action-final-hd/action-crossover.mp4`: all 260 frames decoded at 30 fps, 8.6667 seconds, silent, 6.74 MB. Full suite: 167 tests and 11 subtests passed; 93% studio coverage. Mac launcher syntax and generated-output ignore rules passed. Multiple diagnostic passes were visually inspected; fixed stale cuts, stretched sprite aspect ratios, crossed-arm overlap and dithered flash overlays. `ACTION_SEQUENCE.md` and `action.sh` are the Mac entry points. No new runtime dependency is needed on the Mac. The local dependency audit still flags the pre-existing pip25.0.1 installer; no dependency was added in this update. Mac crash cause remains unconfirmed.

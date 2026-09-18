@@ -2,3 +2,7 @@ frames/
 previews/
 motion-report.json
 render-state.json
+/action-output/
+/action-preview-*/
+/action-render-*/
+/reference-output/

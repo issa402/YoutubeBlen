@@ -20,6 +20,31 @@
       "file": "mbappe-profile-matched.png",
       "sha256": "25d8bb465a0eec4f2c86fac5b23c703b8109282c8b7a022e3594e20a54ce2a24",
       "origin": "Generated cel illustration guided by supplied style reference"
+    },
+    {
+      "file": "action-point.png",
+      "sha256": "721764ad583ec3cae9d6e6ceeae4cf3d8b56364d3b3973d85c33b1a35ea37934",
+      "origin": "Built-in image generation guided by creator artwork and supplied animation frames; see ACTION_SEQUENCE.md"
+    },
+    {
+      "file": "action-tumble.png",
+      "sha256": "9c5c1ca25b8158d644377ac8f68c9c0e4f48eacc52226a178b6981db65d71151",
+      "origin": "Built-in image generation guided by creator artwork and supplied animation frames; see ACTION_SEQUENCE.md"
+    },
+    {
+      "file": "action-city.png",
+      "sha256": "3bc2981bd39acf2fbbfdf4a04b56bece3f050674cd09eb52fc4828f3437356d4",
+      "origin": "Built-in image generation guided by creator artwork and supplied animation frames; see ACTION_SEQUENCE.md"
+    },
+    {
+      "file": "action-warehouse.png",
+      "sha256": "27c3749be4c0a1efbe6ea75f9191aed52486aa530ca5e09dc33de83fb29251e9",
+      "origin": "Built-in image generation guided by creator artwork and supplied animation frames; see ACTION_SEQUENCE.md"
+    },
+    {
+      "file": "reference-doorway.png",
+      "sha256": "45ec001c114aabc281635f4c0a17362cc7be3f57976ba81c523662c684dc0975",
+      "origin": "Built-in image generation guided by creator artwork and supplied animation frames; see ACTION_SEQUENCE.md"
     }
   ]
 }

@@ -37,7 +37,7 @@ def sprite(name,asset,offset,width,height,rig=False):
                 weight=edge*max(0,min(1,(.73-v)/.5))
                 mesh.vertices[index].co=(x+.10*math.sin(phase-v*3)*weight,y,z+.045*math.sin(phase+u*3)*weight)
                 mesh.vertices[index].keyframe_insert('co',frame=frame)
-    elif rig:
+    elif rig and rig != 'grid':
         for frame in (1,88,96,104,112,132,FRAME_END):
             angle=.20*(1-pose_at(frame)['point_extension'])
             for index,(x,y,z) in enumerate(vertices):
