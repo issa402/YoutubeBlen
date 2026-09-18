@@ -27,9 +27,9 @@ def test_reference_timeline_preserves_every_source_frame():
 
 
 def test_action_packet_is_self_contained_and_matches_canonical_sources():
-    for name in ('action_crossover.py', 'reference_crossover.py', 'crossover_sprites.py', 'crossover_approved.py', 'crossover_spec.py', 'hd_spec.py'):
+    for name in ('action_crossover.py', 'action_motion.py', 'action_art.py', 'reference_crossover.py', 'crossover_sprites.py', 'crossover_approved.py', 'crossover_spec.py', 'hd_spec.py'):
         assert (ROOT / 'blender' / name).read_bytes() == (PACKET / name).read_bytes()
-    for name in ('action-point.png', 'action-tumble.png', 'action-city.png', 'action-warehouse.png', 'reference-doorway.png'):
+    for name in ('action-defeated.png', 'action-point-right.png', 'action-point.png', 'action-tumble.png', 'action-city.png', 'action-warehouse.png', 'reference-doorway.png'):
         data = (ROOT / 'blender/assets' / name).read_bytes()
         assert data.startswith(b'\x89PNG\r\n\x1a\n')
         assert data == (PACKET / 'assets' / name).read_bytes()

@@ -1,4 +1,11 @@
 # Decision Log
+
+## 2026-09-18 — Causal choreography and teachable motion code
+
+Use a shared grip target with pure Python `ThrowPose` calculations for the overhead ankle throw. Native sleeve/glove geometry and the victim landmark use the same target until release. Regression tests check contact, arm lengths and continuous launch; Blender checks actual transformed ankle/palm positions. Use new exhausted and right-pointing artwork instead of trying to convey defeat with a smiling sprite. Keep approved identities and source duration, then follow the gesture with a matched rightward camera move.
+
+Document the actual layered 2.5D method, reconstructed backgrounds, local render commands and optional Hermes handoff in `HOW_THIS_ANIMATION_WORKS.md`. Do not claim a full 3D rig, exact motion transfer, live Hermes production, model retraining or measured token savings. Windows checks cannot establish a fix for the unresolved Mac crash.
+
 ## 2026-09-17 - Reference-length action adaptation
 
 Use all 260 source frames at their actual 30 fps cadence. Preserve reference main cut boundaries; subdivide the opening flight for camera staging. Keep previous eight-second and 5.4-second drafts separate. Version the generated toward-camera pointing/tumbling artwork and reconstructed city/warehouse plates; retain original supplied Ronaldo artwork. Native sleeve/elbow and cape deformation provide deterministic movement. This is a layered 2.5D adaptation with explicit limits, not exact footage replacement. Mac execution remains unverified and prior triangulation crash attribution remains only a hypothesis.

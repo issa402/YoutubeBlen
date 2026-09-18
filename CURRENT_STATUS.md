@@ -1,8 +1,16 @@
 # Current Status
 
-Last updated: 2026-09-16
+Last updated: 2026-09-18
 
-## Current phase
+## Latest animation revision — September 18
+
+Active visual task: the corrected ankle throw in `episodes/002-ronaldo-hate-psychology/mac/superhero-crossover/`. Read `ACTION_SEQUENCE.md` and the new `HOW_THIS_ANIMATION_WORKS.md` first. This replaces the previous punch/independent-tumble choreography.
+
+Implemented: connected grip through frame 10, release at 11, flight toward the warehouse, wall recoil/drop, hovering arrival, new defeated Mbappe artwork, right-pointing profile pose and directional camera move into Ronaldo. Pure motion math is separate from native cel geometry. Blender verifies transformed ankle/palm contact, finger direction/framing and stable head vertices.
+
+Complete playable result: `.studio/renders/action-throw-final-hd/action-crossover.mp4`, 1920x1080, 30 fps, 260 frames, 8.667 seconds, silent, 6.82 MB. Every encoded frame decoded successfully. Two diagnostic rounds and final encoded key frames were visually inspected. The generated `.blend`, frame PNGs, motion report and validation report are alongside the video. Full tests: 178 passed plus 11 subtests, 93% studio coverage; dedicated throw math tests reached 100% module coverage. Pip check and Bash syntax pass. Existing pip installer vulnerabilities remain in the Windows environment; this change adds no dependencies. Mac execution remains unverified and its prior crash is unresolved. This is reconstructed 2.5D animation, not exact source motion transfer. Hermes did not run live generation. The new creator correction is saved in local feedback, and a fresh preparation-only handoff includes it (9,157 characters; approximate 2,290 payload tokens excluding runtime overhead).
+
+## Earlier studio phase
 
 First-release studio, narration and portable Blender code are ready for the GitHub/Mac handoff. Native 1080p diagnostic frames and the local neural opening voice are verified. Full 720-frame HD rendering and final HD voice/caption assembly remain pending. The existing 30-second polished review cut remains available on Windows.
 
@@ -16,7 +24,7 @@ Canonical folder: `episodes/002-ronaldo-hate-psychology/`. Folder ID 002 is reta
 
 ## Completed
 
-- Mac Blender 5.2 crash compatibility fix: the creator confirmed Blender itself starts, while the revised scene aborted with native SIGTRAP/exit 133 before a Python traceback. Ronaldo's 76 validated mesh triangles are now stored explicitly instead of invoking Blender's runtime polygon tessellator. Clean factory-started build and focused regression tests pass on Windows; the Mac rerun remains the final confirmation.
+- Earlier Mac compatibility experiment: Ronaldo's 76 stored mesh triangles pass Windows checks. Continued native Mac crashes were reported afterward. Tessellation was not established as their cause; the Mac crash remains undiagnosed.
 
 - Shared-art revision: the creator's supplied Ronaldo/Superman illustration is preserved byte-for-byte as `ronaldo-approved.png`, mapped onto an outlined Blender mesh. Messi/Omni-Man and both Mbappe poses now use matching cel artwork. Ten 720p diagnostic frames rendered and visually checked together. Native 1920x1080 eight-second render completed: `.studio/renders/crossover-v6-hd/superhero-crossover.mp4`. All 192 frames decoded at 24 fps; silent preview. 164 tests and 11 subtests passed (93% studio coverage). Actual Mac execution remains unverified.
 

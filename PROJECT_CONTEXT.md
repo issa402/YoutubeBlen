@@ -1,5 +1,9 @@
 # Project Context
 
+## Latest visual correction — 2026-09-18
+
+The opening is an overhead ankle throw, not a punch. Preserve: held ankle, release/flight, wall impact/drop, Messi hovering approach, defeated Mbappe looking up and pointing screen right, camera into Ronaldo. Current portable source is episode 002 `mac/superhero-crossover/action_crossover.py`, with `action_motion.py` and `action_art.py`. The new `HOW_THIS_ANIMATION_WORKS.md` teaches the actual code/art/Hermes workflow. New poses supply exhausted expressions and a coherent rightward gesture. This replaces the previous action preview's choreography; exact footage replacement is not claimed.
+
 ## Channel identity
 
 Newest visual request (2026-09-17): complete the 260-frame / 30 fps extended action adaptation of the newest video. Entry point: episode002 mac/superhero-crossover/ACTION_SEQUENCE.md and action.sh. Preserve approved character identities; backgrounds and character performances are reconstructed, not pixel-exact source replacements.

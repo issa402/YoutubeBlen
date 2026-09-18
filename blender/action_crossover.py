@@ -10,7 +10,7 @@ from pathlib import Path
 import sys
 
 import bpy
-from mathutils import Vector
+from mathutils import Vector, Quaternion
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -18,10 +18,12 @@ from reference_crossover import plate, camera, masonry, key
 from crossover_sprites import sprite
 from crossover_approved import approved_ronaldo
 from hd_spec import select_eevee_engine
+from action_motion import throw_pose, ANKLE
+from action_art import throw_arm, debris, speed_lines
 
 FPS = 30
 END = 260
-CUTS = (("strike", 1, 13), ("city tumble", 14, 32),
+CUTS = (("throw", 1, 13), ("city tumble", 14, 32),
         ("warehouse tumble", 33, 43), ("impact cutaway", 44, 64),
         ("landing wide", 65, 109), ("hover", 110, 146),
         ("crouch", 147, 175), ("point", 176, 208),
@@ -57,14 +59,14 @@ def artwork(name, asset, offset, width, height, deform=None):
             x, y, z = point.co
             u, v = x / width + .5, z / height + .5
             if deform == "Pointing reach":
-                # Foreground hand is at upper left. Face at upper right stays fixed.
-                weight = smooth((.63 - u) / .25) * smooth((v - .22) / .13)
-                dx, dz = x - .12 * width, z - .05 * height
-                angle = -.10
+                # New profile: head on LEFT, pointing arm on RIGHT.
+                weight = smooth((u - .44) / .13) * smooth((v - .18) / .16)
+                dx, dz = x + .05 * width, z - .02 * height
+                angle = -.48
                 rx = math.cos(angle) * dx - math.sin(angle) * dz
                 rz = math.sin(angle) * dx + math.cos(angle) * dz
-                point.co.x = x + (rx - dx - .035 * width) * weight
-                point.co.z = z + (rz - dz + .025 * height) * weight
+                point.co.x = x + (rx - dx) * weight
+                point.co.z = z + (rz - dz) * weight
             elif deform == "Cape ripple":
                 weight = smooth((abs(u - .5) - .17) / .16) * smooth((.7 - v) / .45)
                 point.co.x += math.sin(v * 9) * .13 * weight
@@ -114,6 +116,7 @@ def line(name, points, material, thickness=.025):
 def flash(name, offset, color, values):
     obj = plate(name, offset)
     obj.location.y = -12
+    obj.scale = (1.4, 1, 1.4)
     material = obj.data.materials[0]
     if hasattr(material, 'surface_render_method'):
         material.surface_render_method = 'BLENDED'
@@ -133,51 +136,21 @@ def flash(name, offset, color, values):
     return obj
 
 
-def punch_arm(root):
-    """Native sleeve and forearm preserve the approved face and body."""
-    ink=emission_material('Punch outline',(.012,.015,.02,1))
-    white=emission_material('Punch white sleeve',(.78,.81,.80,1))
-    red=emission_material('Punch red glove',(.55,.035,.025,1))
-    upper=bpy.data.objects.new('Punch shoulder',None)
-    bpy.context.collection.objects.link(upper);upper.parent=root
-    upper.location=(.55,-.1,1.2)
-    lower=bpy.data.objects.new('Punch elbow',None)
-    bpy.context.collection.objects.link(lower);lower.parent=upper
-    lower.location=(1.05,-.02,0)
-    def part(name,points,mat,parent):
-        mesh=bpy.data.meshes.new(name)
-        mesh.from_pydata([(x,-1.05,z) for x,z in points],[],[tuple(range(len(points)))])
-        mesh.update();obj=bpy.data.objects.new(name,mesh)
-        bpy.context.collection.objects.link(obj);obj.parent=parent;mesh.materials.append(mat)
-        outline=line(name+' contour',[(x,-1.07,z) for x,z in points+[points[0]]],ink,.024)
-        outline.parent=parent
-    # Cover the source's folded forearms before adding the new action sleeve.
-    part('Action torso',[(-.76,1.55),(.70,1.55),(.66,.45),(.48,-.48),(-.48,-.48),(-.7,.45)],red,root)
-    part('Guard upper sleeve',[(-.76,1.7),(-1.05,1.38),(-1.04,.45),(-.77,.28),(-.61,.5),(-.61,1.4)],white,root)
-    part('Guard glove',[(-1.04,.51),(-.76,.43),(-.65,.06),(-.75,-.16),(-1.01,-.1),(-1.12,.11)],red,root)
-    part('Action chest emblem',[(-.43,1.5),(.39,1.5),(.49,1.27),(.17,1.09),(.14,-.32),(-.05,-.32),(-.08,1.12),(-.44,1.18)],white,root)
-    part('White upper sleeve',[(-.25,-.25),(.1,-.35),(1.1,-.24),(1.22,.05),(1.05,.26),(.05,.34),(-.26,.18)],white,upper)
-    part('Extended red forearm',[(-.12,-.23),(1.02,-.2),(1.36,-.32),(1.72,-.26),(1.78,.14),(1.51,.31),(1.16,.27),(.96,.17),(-.14,.24)],red,lower)
-    for f in range(1,14):
-        t=smooth((f-1)/6)
-        key(upper,'rotation_euler',(0,.6-.9*t,0),f)
-        key(lower,'rotation_euler',(0,-1.8+1.8*t,0),f)
-
-
 def impact_bones(root):
     """Brief non-graphic cartoon rib and spine cutaway."""
     bone=emission_material('Impact bone light',(.80,.88,1,1),1.2)
-    paths=[[(0,-1.25,-1.5),(0,-1.25,1.65)]]
-    for i in range(7):
-        z=1.35-i*.28;w=.65+.25*math.sin(i/6*math.pi)
+    paths=[[(.10,-1.25,-.65),(.10,-1.25,1.65)]]
+    for i in range(8):
+        z=1.48-i*.215;w=.49+.22*math.sin(i/7*math.pi)
         for side in (-1,1):
-            paths.append([(0,-1.25,z+.08),(side*w*.75,-1.25,z+.15),(side*w,-1.25,z),(side*w*.75,-1.25,z-.18),(0,-1.25,z-.16)])
+            paths.append([(.10+side*w*math.sin(a),-1.25,z-.17*(1-math.cos(a)))
+                          for a in [j*math.pi/12 for j in range(13)]])
     for i,points in enumerate(paths):
-        obj=line('Cartoon impact bone '+str(i),points,bone,.045);obj.parent=root
+        obj=line('Cartoon impact bone '+str(i),points,bone,.022);obj.parent=root
         for f in (1,43,44,45,46,58,59,END):key(obj,'hide_render',not 44<=f<=58,f)
 
 def backdrop(kind, offset, missing):
-    preferred = "action-city.png" if kind in ("strike", "city tumble", "hover") else "action-warehouse.png"
+    preferred = "action-city.png" if kind in ("throw", "city tumble", "hover") else "action-warehouse.png"
     if kind == "impact cutaway":
         preferred = "action-warehouse.png"
     if kind == "reveal":
@@ -186,7 +159,7 @@ def backdrop(kind, offset, missing):
     crop = (.15, .15, .85, .85) if kind in ('crouch', 'point') else (0, 0, 1, 1)
     obj = plate(kind + " reconstructed set", offset, asset, crop)
     # Slight overscan supports impact shake without exposing the edge.
-    obj.scale = (1.12, 1, 1.12)
+    obj.scale = (1.4, 1, 1.4) if kind in ('point','reveal','city tumble','warehouse tumble') else (1.12,1,1.12)
     return obj
 
 
@@ -240,67 +213,89 @@ def build(size):
         offset = index * 40
         cams.append(camera(name, offset, start))
         backdrop(name, offset, missing)
-    strike_asset = select_asset("action-strike.png", "messi-omni-matched.png", missing)
     tumble_asset = select_asset("action-tumble.png", "mbappe-crouch-matched.png", missing)
-    point_asset = select_asset("action-point.png", "mbappe-profile-matched.png", missing)
-    print("PHASE: strike", flush=True)
-    striker, cape = artwork("Messi decisive strike", strike_asset, -1, 9.6, 6.4, "Cape ripple")
-    if strike_asset == 'messi-omni-matched.png':
-        punch_arm(striker)
-    victim, _ = artwork("Mbappe struck", tumble_asset, 2.8, 5.0, 5.0)
-    characters.extend((striker, victim))
-    for frame in range(1, 14):
-        t = (frame - 1) / 12
-        reach = smooth(t / .5)
-        key(striker, "location", (-1.5 + reach * 1.0, -.5, -.1 + .12 * reach), frame)
-        key(striker, "rotation_euler", (0, -.04 + .08 * reach, 0), frame)
-        shape_key(cape, t, frame)
-        key(victim, "location", (2.8 + 3 * smooth((t - .35) / .65), -.4, .3 + .65 * t), frame)
-        key(victim, "rotation_euler", (0, -.1 - .6 * smooth((t - .35) / .65), 0), frame)
-        key(cams[0], "location", (1.1 + .1 * math.sin(frame * 2) * reach, -25, 1.0 + .04 * math.cos(frame)), frame)
-    cams[0].data.ortho_scale = 12.5
-    flash("Strike contact flash", 0, (1, .85, .5, 1), ((1, 0), (6, 0), (7, .7), (8, .15), (10, 0), (END, 0)))
-    print("PHASE: tumbling motion", flush=True)
-    for shot_index in (1, 2):
-        _, start, end = CUTS[shot_index]
-        offset = shot_index * 40
-        tumbling, _ = artwork("Mbappe airborne " + str(shot_index), tumble_asset, offset, 6.0, 6.0)
-        characters.append(tumbling)
-        for frame in range(start, end + 1):
-            t = (frame - start) / (end - start)
-            x = offset + (3.3 - 6.6 * t if shot_index == 1 else -3.2 + 5.6 * t)
-            z = 1.4 - 2 * t + .9 * math.sin(t * math.pi)
-            rotation = .25 + 3.8 * t if shot_index == 1 else 3.9 + 2.8 * t
-            key(tumbling, "location", (x, -.8, z), frame)
-            key(tumbling, "rotation_euler", (0, rotation, 0), frame)
-            scale = .78 + .16 * math.sin(t * math.pi)
-            key(tumbling, "scale", (scale, 1, scale), frame)
-            key(cams[shot_index], "location", (offset + .15 * math.sin(frame * 1.8), -25, .06 * math.cos(frame * 1.7)), frame)
-    flash("Wall contact flash", 80, (1, .87, .66, 1), ((1, 0), (42, 0), (44, .8), (45, .5), (46, 0), (END, 0)))
+    point_asset = "action-point-right.png"
+    reaction_asset = "action-defeated.png"
+    print("PHASE: ankle grip, swing and release", flush=True)
+    thrower, cape = artwork("Messi ankle throw", "messi-omni-matched.png", -2.05, 4.3, 6.4, "Cape ripple")
+    thrower.location.y = -.45
+    throw_arm()
+    victim, _ = artwork("Mbappe held ankle", tumble_asset, 0, 3.34, 5.0)
+    characters.extend((thrower, victim))
+    for frame in range(1,14):
+        pose = throw_pose(frame)
+        x,z = pose.center
+        key(victim, 'location', (x,-.6,z),frame)
+        key(victim, 'rotation_euler', (0,pose.angle,0),frame)
+        key(victim, 'scale', (pose.scale,1,pose.scale),frame)
+        shape_key(cape, smooth((frame-3)/10),frame)
+        key(cams[0], 'location', (-1.8+.25*smooth((frame-7)/6),-25,1.1),frame)
+        key(cams[0].data,'ortho_scale',10.6-.3*smooth((frame-7)/6),frame)
+    speed_lines(0, 10, 13, towards_camera=True)
+    print("PHASE: flight toward warehouse", flush=True)
+    for shot_index in (1,2):
+        _,start,end = CUTS[shot_index]
+        offset=shot_index*40
+        flying,_=artwork("Mbappe thrown flight "+str(shot_index),tumble_asset,offset,6,6)
+        characters.append(flying)
+        speed_lines(offset,start,end, towards_camera=shot_index==1)
+        base_camera_rotation=cams[shot_index].rotation_euler.to_quaternion()
+        for frame in range(start,end+1):
+            t=(frame-start)/(end-start)
+            # First camera faces the outgoing throw: close foreground recedes
+            # toward warehouse. Next camera follows it into the wall.
+            if shot_index==1:
+                x=offset-1.4+2.5*t
+                z=.6-.3*t
+                scale=1.65*(1-t)**2+.34
+                rotation=.49-3.04*t
+            else:
+                x=offset-2.4+3.4*t
+                z=.55-.4*t
+                scale=.65+.25*t
+                rotation=-2.55-3.73*t
+            key(flying,'location',(x,-.8,z),frame)
+            key(flying,'rotation_euler',(0,rotation,0),frame)
+            key(flying,'scale',(scale,1,scale),frame)
+            key(cams[shot_index],'location',(offset+.5*t,-25,.2),frame)
+            roll=(.10+.18*t) if shot_index==1 else (.28-.28*t)
+            key(cams[shot_index],'rotation_euler',(base_camera_rotation @ Quaternion((0,0,1),roll)).to_euler(),frame)
+    flash("Wall contact flash",80,(1,.87,.66,1),((1,0),(41,0),(43,.75),(44,0),(END,0)))
     print("PHASE: impact cutaway", flush=True)
     impact, _ = artwork("Mbappe impact silhouette", tumble_asset, 120, 7.0, 7.0)
     impact_bones(impact)
+    debris(120)
     impact_emit=next(n for n in impact.data.materials[0].node_tree.nodes if n.type=='EMISSION')
     for f in (1,43,44,58,59,END):
         key(impact_emit.inputs['Strength'],'default_value',.02 if 44<=f<=58 else 1.0,f)
     characters.append(impact)
     for frame in range(44, 65):
         t = (frame - 44) / 20
-        key(impact, "rotation_euler", (0, -.85 + .12 * math.sin(t * math.pi), 0), frame)
+        key(impact, "rotation_euler", (0, -.10 + .06 * math.sin(t * math.pi), 0), frame)
         key(impact, "location", (120, -.5, -.2 - .2 * t), frame)
-        key(cams[3].data, "ortho_scale", 11.5 - .6 * t, frame)
+        key(impact, "scale", (1+.10*math.exp(-t*8),1,1-.10*math.exp(-t*8)),frame)
+        shake=.15*math.exp(-t*6)
+        key(cams[3],"location",(120+shake*math.sin(frame*2.1),-25,.70+shake*math.cos(frame*1.5)),frame)
+        key(cams[3].data, "ortho_scale", 6.2 - .3 * t, frame)
     flash("Abstract impact pulse", 120, (.07, .65, 1, 1), ((1, 0), (46, .6), (48, 0), (52, .28), (56, 0), (END, 0)))
-    print("PHASE: landing and foreground arrival", flush=True)
-    landed, compression = artwork("Mbappe warehouse landing", "mbappe-crouch-matched.png", 161, 2.6, 3.9, "Landing compression")
-    boots, _ = artwork("Messi boots foreground", "messi-omni-matched.png", 156, 11, 16.5)
-    characters.extend((landed, boots))
-    for frame in range(65, 110):
-        t = (frame - 65) / 44
-        key(landed, "location", (161, -.2, -2.1 + .32 * math.exp(-t * 10) * math.sin(t * 18)), frame)
-        shape_key(compression, math.exp(-t * 6), frame)
-        descent = smooth((t - .58) / .33)
-        key(boots, "location", (156, -3, 14 - 10.1 * descent), frame)
-        key(cams[4].data, "ortho_scale", 16 - .25 * t, frame)
+    print("PHASE: wall recoil, drop and hovering arrival", flush=True)
+    pinned,_=artwork("Mbappe wall recoil",tumble_asset,161,2.6,3.9)
+    landed,compression=artwork("Mbappe defeated landing",reaction_asset,161,2.6,3.9,"Landing compression")
+    approaching,cape=artwork("Messi hovering arrival","messi-omni-matched.png",156.7,4,6.0,"Cape ripple")
+    characters.extend((pinned,landed,approaching))
+    for frame in range(65,110):
+        t=(frame-65)/44
+        fall=smooth((frame-71)/10)
+        key(pinned,'location',(161,-.3,-.05-2.0*fall),frame)
+        key(pinned,'rotation_euler',(0,-.12*fall,0),frame)
+        key(pinned,'hide_render',frame>=80,frame)
+        key(landed,'hide_render',frame<80,frame)
+        key(landed,'location',(161,-.35,-2.3+.09*math.exp(-max(0,frame-80)/5)),frame)
+        shape_key(compression,math.exp(-max(0,frame-80)/5),frame)
+        descent=smooth((frame-89)/15)
+        key(approaching,'location',(156.5+.6*descent,-1.2,8-7.35*descent+.05*math.sin(frame*.28)),frame)
+        shape_key(cape,.5+.5*math.sin(frame*.25),frame)
+        key(cams[4].data,'ortho_scale',16-.5*t,frame)
     print("PHASE: hover", flush=True)
     hovering, cape = artwork("Messi folded-arms hover", "messi-omni-matched.png", 200, 5.6, 8.4, "Cape ripple")
     characters.append(hovering)
@@ -310,8 +305,8 @@ def build(size):
         shape_key(cape, .5 + .5 * math.sin(t * math.pi * 3), frame)
         key(cams[5].data, "ortho_scale", 16 - .35 * smooth(t), frame)
     print("PHASE: crouch and pointing", flush=True)
-    crouching, compression = artwork("Mbappe close reaction", "mbappe-crouch-matched.png", 240, 8.0, 12, "Landing compression")
-    pointing, reach = artwork("Mbappe foreshortened pointing", point_asset, 280, 16.0, 10.667, "Pointing reach")
+    crouching, compression = artwork("Mbappe close reaction", reaction_asset, 240, 8.0, 11, "Landing compression")
+    pointing, reach = artwork("Mbappe defeated points right", point_asset, 280, 16.0, 8.0, "Pointing reach")
     characters.extend((crouching, pointing))
     for frame in range(147, 176):
         t = (frame - 147) / 28
@@ -320,11 +315,13 @@ def build(size):
         shape_key(compression, .1 + .1 * math.sin(t * math.pi * 2), frame)
     for frame in range(176, 209):
         t = (frame - 176) / 32
-        extension = smooth((frame - 176) / 2)
+        extension = smooth((frame - 176) / 7)
         shape_key(reach, 1 - extension, frame)
-        key(pointing, "location", (280 + .16 * (1 - extension), -.8, -.55 - .12 * (1 - extension)), frame)
-        key(cams[7].data, "ortho_scale", 16 - .7 * extension, frame)
-    flash("Pointing pink pulse", 280, (1, .1, .33, 1), ((1, 0), (191, 0), (194, .32), (197, .7), (199, .03), (201, 0), (207, .25), (209, 0), (END, 0)))
+        key(pointing, "location", (280, -.8, -.90 + .04 * math.sin(t * math.pi)), frame)
+        key(cams[7].data, "ortho_scale", 16 - .3 * extension, frame)
+        # Follow the indicated direction; next shot catches the same rightward pan.
+        key(cams[7], "location", (280+2.0*smooth((frame-201)/7),-25,0),frame)
+    flash("Pointing pink pulse", 280, (1, .1, .33, 1), ((1,0),(200,0),(205,.10),(208,.26),(209,0),(END,0)))
     print("PHASE: Ronaldo reveal", flush=True)
     ronaldo = approved_ronaldo(320)
     ronaldo.scale = (.90, .90, .90)
@@ -335,7 +332,8 @@ def build(size):
         t = (frame - 209) / (END - 209)
         key(ronaldo, "location", (320, -.5, -3.2 + .035 * math.sin(t * math.pi * 3)), frame)
         key(emit.inputs["Strength"], "default_value", (.035 if frame in (209,210,211,212,213,215,216,220,221) else 1.0), frame)
-        key(cams[8].data, "ortho_scale", 16 - .5 * smooth(t), frame)
+        key(cams[8].data, "ortho_scale", 16 - .9 * smooth(t), frame)
+        key(cams[8], "location", (320-2.0*(1-smooth((frame-209)/8)),-25,0),frame)
     lightning(320, 209, END)
     flash("Ronaldo reveal light", 320, (.50, .78, 1, 1), ((1, 0), (208, 0), (209, .16), (210, 0), (216, .2), (218, 0), (END, 0)))
     print("PHASE: clean viewport", flush=True)
@@ -372,8 +370,38 @@ def validate(scene, characters):
         objects.append({"name": obj.name, "vertices": len(obj.data.vertices),
                         "shape_keys": len(obj.data.shape_keys.key_blocks) if obj.data.shape_keys else 0,
                         "has_transform_motion": obj.animation_data is not None})
+    contacts=[]
+    victim=bpy.data.objects['Mbappe held ankle']
+    for frame in range(1,11):
+        scene.frame_set(frame)
+        pose=throw_pose(frame)
+        actual=victim.matrix_world @ Vector((ANKLE[0],-1,ANKLE[1]))
+        error=math.hypot(actual.x-pose.grip[0],actual.z-pose.grip[1])
+        palm=bpy.data.objects['Ankle grip palm'].matrix_world.translation
+        visible_error=math.hypot(actual.x-palm.x,actual.z-palm.z)
+        if max(error,visible_error)>1e-4:
+            raise RuntimeError(f"Ankle detached at frame {frame}: {error}")
+        contacts.append({"frame":frame,"ankle_grip_error":error,"visible_palm_error":visible_error})
+    pointing=bpy.data.objects['Mbappe defeated points right']
+    neutral=pointing.data.shape_keys.key_blocks[0]
+    lowered=pointing.data.shape_keys.key_blocks[1]
+    width=max(v.co.x for v in neutral.data)-min(v.co.x for v in neutral.data)
+    height=max(v.co.z for v in neutral.data)-min(v.co.z for v in neutral.data)
+    head_indices=[i for i,v in enumerate(neutral.data) if .23<v.co.x/width+.5<.42 and v.co.z/height+.5>.62]
+    head_drift=max((neutral.data[i].co-lowered.data[i].co).length for i in head_indices)
+    if head_drift>1e-6:
+        raise RuntimeError('Pointing arm deformation changed the head')
+    point_samples=[]
+    for frame in (183,192,201,208):
+        scene.frame_set(frame)
+        finger=pointing.matrix_world @ Vector((width*.45,-1,height*.025))
+        head=pointing.matrix_world @ Vector((-width*.17,-1,height*.25))
+        camera_right=scene.camera.location.x+scene.camera.data.ortho_scale*.5
+        if finger.x<=head.x or finger.x>=camera_right:
+            raise RuntimeError(f'Pointing direction/framing invalid at {frame}')
+        point_samples.append({'frame':frame,'finger_x':finger.x,'head_x':head.x,'camera_right':camera_right})
     scene.frame_set(1)
-    return {"camera_samples": samples, "characters": objects,
+    return {"right_point_samples":point_samples,"point_head_drift":head_drift,"grip_contacts":contacts,"camera_samples": samples, "characters": objects,
             "character_type": "Layered illustrated 2.5D meshes; not skeletal 3D characters"}
 
 
@@ -410,7 +438,7 @@ def main():
               "render_complete": bool(args.render and len(frames) == END),
               "fallback_assets": missing, "inspection": inspection,
               "limitations": ["Backgrounds reconstructed, not source footage pixels",
-                              "Articulated 2.5D pose adaptation, not exact motion capture",
+                              "Overhead ankle throw and right-point staging; 2.5D adaptation, not exact motion capture",
                               "Stylized impact cutaway replaces source internal anatomy",
                               "No source audio"]}
     (output / "motion-report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")

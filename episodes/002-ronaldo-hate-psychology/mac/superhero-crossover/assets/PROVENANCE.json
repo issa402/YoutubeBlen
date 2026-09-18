@@ -45,6 +45,16 @@
       "file": "reference-doorway.png",
       "sha256": "45ec001c114aabc281635f4c0a17362cc7be3f57976ba81c523662c684dc0975",
       "origin": "Built-in image generation guided by creator artwork and supplied animation frames; see ACTION_SEQUENCE.md"
+    },
+    {
+      "file": "action-defeated.png",
+      "sha256": "17299de1c810ef93837d372b173d901b68d8566ab51a7b8ec26d7051246bb746",
+      "origin": "Built-in image generation: weary kneeling Mbappe/Turtle, looking up left; preserves approved character identity and cel style. 2026-09-18."
+    },
+    {
+      "file": "action-point-right.png",
+      "sha256": "5e53a2500c8330466a2997b11f8aca6d3576bb6fbf76dea276257dd6a05012c6",
+      "origin": "Built-in image generation: weary side-profile Mbappe/Turtle pointing screen right; preserves approved character identity and cel style. 2026-09-18."
     }
   ]
 }
