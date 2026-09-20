@@ -1,5 +1,11 @@
 # Decision Log
 
+## 2026-09-18 — Teach the animation as an upgradeable system
+
+Keep the concise implementation walkthrough, and add a separate complete architecture manual inside the portable packet. The manual must distinguish the active 260-frame `action.sh` flow from retained 192-frame files, explain why 30 fps can still look stiff, document canonical-versus-packet ownership, and teach three upgrade routes: layered 2D puppet, Grease Pencil pose animation and fully rigged 3D.
+
+Treat numeric motion tests and visual playback review as separate quality gates. Preserve the current 2.5D system for fast documentary inserts while recommending layered puppets for medium acting shots and more expensive hand-drawn/3D work only where the shot benefits.
+
 ## 2026-09-18 — Causal choreography and teachable motion code
 
 Use a shared grip target with pure Python `ThrowPose` calculations for the overhead ankle throw. Native sleeve/glove geometry and the victim landmark use the same target until release. Regression tests check contact, arm lengths and continuous launch; Blender checks actual transformed ankle/palm positions. Use new exhausted and right-pointing artwork instead of trying to convey defeat with a smiling sprite. Keep approved identities and source duration, then follow the gesture with a matched rightward camera move.

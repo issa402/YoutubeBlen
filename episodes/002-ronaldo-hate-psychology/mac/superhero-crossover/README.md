@@ -1,5 +1,7 @@
 # Messi / Mbappe / Ronaldo superhero crossover
 
+> **Current entry point (260 frames / 30 fps):** use `action.sh`, `action_crossover.py` and [ACTION_SEQUENCE.md](ACTION_SEQUENCE.md). The commands and 192-frame timing below describe an older retained version. The complete current manual is [COMPLETE_ARCHITECTURE_AND_ANIMATION_GUIDE.md](COMPLETE_ARCHITECTURE_AND_ANIMATION_GUIDE.md).
+
 Revised 8-second adaptation of the supplied approximately 4.334-second reference. 192 frames at 24 fps, 1920x1080 by default. Silent; source recording audio and UI are not embedded.
 
 | Frames | Replacement shot |

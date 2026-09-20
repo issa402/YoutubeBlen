@@ -1,5 +1,7 @@
 # How this animation is made — and how to change it
 
+For the complete folder-by-folder architecture, Blender fundamentals, lifelike-motion upgrade paths and a self-teaching workflow, read [COMPLETE_ARCHITECTURE_AND_ANIMATION_GUIDE.md](COMPLETE_ARCHITECTURE_AND_ANIMATION_GUIDE.md). This file remains the shorter implementation walkthrough.
+
 This is an illustrated **2.5D Blender animation**: character drawings are placed on editable meshes, arranged in front of illustrated backgrounds, and moved by Python code. Blender calculates and renders the frames. Codex writes and revises the code and uses image generation for selected artwork. Hermes is an optional separate agent launcher; it did not secretly create or animate this clip.
 
 The creative target is your sequence: **Messi grips and throws Mbappe → Mbappe takes the impact → Messi approaches and hovers → a defeated Mbappe looks at him and points to his right → the camera reveals Ronaldo.** That causal order matters more than adding flashes to an unclear action. The main timeline is 260 frames at 30 fps, or about 8.67 seconds. This is a reconstruction of your reference, not automatic, frame-perfect replacement of its characters.

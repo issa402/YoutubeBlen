@@ -4,7 +4,7 @@ September 18 revision: **Messi holds Mbappe by the ankle, swings and releases hi
 
 The sequence remains **260 frames at 30 fps (8.667 seconds)**. Main impact/reaction/reveal cuts retain the reference timing. Backgrounds and character performances are reconstructed 2.5D animation, not pixel-exact replacement or motion capture.
 
-Read [HOW_THIS_ANIMATION_WORKS.md](HOW_THIS_ANIMATION_WORKS.md) for the beginner walkthrough of the code, artwork, motion, Hermes, token usage and two-computer workflow.
+Read [HOW_THIS_ANIMATION_WORKS.md](HOW_THIS_ANIMATION_WORKS.md) for the shorter implementation walkthrough. Read [COMPLETE_ARCHITECTURE_AND_ANIMATION_GUIDE.md](COMPLETE_ARCHITECTURE_AND_ANIMATION_GUIDE.md) for the full folder map, file-by-file architecture, Blender fundamentals, editing cookbook and paths to lifelike motion.
 
 ## Mac commands
 
