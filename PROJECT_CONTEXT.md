@@ -1,5 +1,9 @@
 # Project Context
 
+## Current short — 2026-09-24
+
+Active work: episode 002 `shorts/same-standard/`, an 86.4-second portrait commentary short using excerpts from the newly supplied recording, revised first-person narration and original football animation inspired by the newest dark comic video. This is separate from the older superhero choreography. Canonical scene code: `blender/rules_short_scene.py` and `rules_short_art.py`; finishing: `tools/rules_short.py`. The creator wants a passionate argument, not a neutral recap. Preserve accurate conditions, attribution and material counterevidence. Secret payments or fixing are not established. The source video supplies visual direction only, not footage or audio.
+
 ## Latest visual correction — 2026-09-18
 
 The opening is an overhead ankle throw, not a punch. Preserve: held ankle, release/flight, wall impact/drop, Messi hovering approach, defeated Mbappe looking up and pointing screen right, camera into Ronaldo. Current portable source is episode 002 `mac/superhero-crossover/action_crossover.py`, with `action_motion.py` and `action_art.py`. The new `HOW_THIS_ANIMATION_WORKS.md` teaches the actual code/art/Hermes workflow. New poses supply exhausted expressions and a coherent rightward gesture. This replaces the previous action preview's choreography; exact footage replacement is not claimed.

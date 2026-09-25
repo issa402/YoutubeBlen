@@ -1,0 +1,147 @@
+{
+  "fps": 30,
+  "frame_count": 2592,
+  "duration_seconds": 86.4,
+  "scenes": [
+    {
+      "id": "hook",
+      "start": 0.0,
+      "end": 10.854666666666667
+    },
+    {
+      "id": "draw",
+      "start": 10.854666666666667,
+      "end": 23.505333333333333
+    },
+    {
+      "id": "egypt",
+      "start": 23.505333333333333,
+      "end": 34.193333333333335
+    },
+    {
+      "id": "salah",
+      "start": 34.193333333333335,
+      "end": 46.112
+    },
+    {
+      "id": "austria",
+      "start": 46.112,
+      "end": 56.898666666666664
+    },
+    {
+      "id": "check",
+      "start": 56.898666666666664,
+      "end": 64.456
+    },
+    {
+      "id": "evidence",
+      "start": 64.456,
+      "end": 74.62333333333333
+    },
+    {
+      "id": "close",
+      "start": 74.62333333333333,
+      "end": 86.4
+    }
+  ],
+  "clips": [
+    {
+      "kind": "recording",
+      "in": 0.0,
+      "out": 3.04,
+      "scene": "hook",
+      "text": "Once you see it, you can't unsee it.",
+      "start": 0.0,
+      "speech_end": 3.04,
+      "end": 3.15
+    },
+    {
+      "kind": "synthetic",
+      "paragraph": 1,
+      "scene": "hook",
+      "text": "I'm tired of being told I'm jealous whenever I question Argentina. I don't buy football's perfect Messi story.",
+      "start": 3.15,
+      "speech_end": 10.744666666666667,
+      "end": 10.854666666666667
+    },
+    {
+      "kind": "synthetic",
+      "paragraph": 2,
+      "scene": "draw",
+      "text": "FIFA separated Spain and Argentina until the final, if both won their groups. France and England got protection too. To me, that's protecting the product.",
+      "start": 10.854666666666667,
+      "speech_end": 21.445333333333334,
+      "end": 21.555333333333333
+    },
+    {
+      "kind": "recording",
+      "in": 36.16,
+      "out": 38.0,
+      "scene": "draw",
+      "text": "Again, very, very convenient.",
+      "start": 21.555333333333333,
+      "speech_end": 23.395333333333333,
+      "end": 23.505333333333333
+    },
+    {
+      "kind": "synthetic",
+      "paragraph": 3,
+      "scene": "egypt",
+      "text": "Then Egypt: Ziko's breakaway goal was wiped out for Attia's earlier foul on Martinez. Egypt's coach, Hossam Hassan, called the officiating unjust.",
+      "start": 23.505333333333333,
+      "speech_end": 34.083333333333336,
+      "end": 34.193333333333335
+    },
+    {
+      "kind": "synthetic",
+      "paragraph": 4,
+      "scene": "salah",
+      "text": "Argentina's winner followed the disputed challenge on Salah. FIFA says the officials checked it and judged normal contact. I still want those standards explained side by side.",
+      "start": 34.193333333333335,
+      "speech_end": 46.002,
+      "end": 46.112
+    },
+    {
+      "kind": "synthetic",
+      "paragraph": 5,
+      "scene": "austria",
+      "text": "Against Austria, Rangnick disputed Mac Allister's challenge before Messi's opener. Schmeichel also said the goal should not have stood. That's criticism worth examining.",
+      "start": 46.112,
+      "speech_end": 56.788666666666664,
+      "end": 56.898666666666664
+    },
+    {
+      "kind": "synthetic",
+      "paragraph": 6,
+      "scene": "check",
+      "text": "No trip to the monitor doesn't mean no check. Every goal is checked. The question is whether the same threshold was applied.",
+      "start": 56.898666666666664,
+      "speech_end": 64.346,
+      "end": 64.456
+    },
+    {
+      "kind": "synthetic",
+      "paragraph": 7,
+      "scene": "evidence",
+      "text": "Messi as Maradona's heir. Ronaldo crashing the coronation. That's how I see this rivalry: greatness fighting a story people already wanted to finish.",
+      "start": 64.456,
+      "speech_end": 74.51333333333334,
+      "end": 74.62333333333333
+    },
+    {
+      "kind": "synthetic",
+      "paragraph": 8,
+      "scene": "close",
+      "text": "I don't have to swallow every call just because the ending sells. Show the full build-ups. Explain the threshold. Same standard, both shirts. No superstar exemptions.",
+      "start": 74.62333333333333,
+      "speech_end": 85.794,
+      "end": 86.4
+    }
+  ],
+  "recording_sha256": "4e95e9badc0a5ef7da967ef07ae454aa95c753dd7e07a26cf0a18398b7675c13",
+  "edit_sha256": "725c12e5d6ee133d1265e02a191917fb8e9e25965482cd3fea3b4da93bd9ff90",
+  "voiceover_sha256": "d2ff54ee6dd9a3cf03e174a6268d3938a93c58d53fadd283d339c4070c131318",
+  "mix_sha256": "63c55abba6578efb63cb898c0463d356845d9f284b5df16d829a42a29fb8ae91",
+  "voice": "Supplied recording excerpts + Kokoro am_michael; no cloning",
+  "recorded_excerpt_seconds": 4.8800000000000034
+}

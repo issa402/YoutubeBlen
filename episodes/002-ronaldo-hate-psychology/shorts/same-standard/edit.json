@@ -1,0 +1,153 @@
+{
+  "title": "Same game. Same standard.",
+  "fps": 30,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "source_audio_role": "Creator-supplied recording; excerpts preserved as spoken, not voice-cloned",
+  "reference_role": "New supplied video: art, lighting and motion inspiration only; no copied video or audio",
+  "clips": [
+    {
+      "kind": "recording",
+      "in": 0.0,
+      "out": 3.04,
+      "scene": "hook",
+      "text": "Once you see it, you can't unsee it."
+    },
+    {
+      "kind": "synthetic",
+      "paragraph": 1,
+      "scene": "hook"
+    },
+    {
+      "kind": "synthetic",
+      "paragraph": 2,
+      "scene": "draw"
+    },
+    {
+      "kind": "recording",
+      "in": 36.16,
+      "out": 38.0,
+      "scene": "draw",
+      "text": "Again, very, very convenient."
+    },
+    {
+      "kind": "synthetic",
+      "paragraph": 3,
+      "scene": "egypt"
+    },
+    {
+      "kind": "synthetic",
+      "paragraph": 4,
+      "scene": "salah"
+    },
+    {
+      "kind": "synthetic",
+      "paragraph": 5,
+      "scene": "austria"
+    },
+    {
+      "kind": "synthetic",
+      "paragraph": 6,
+      "scene": "check"
+    },
+    {
+      "kind": "synthetic",
+      "paragraph": 7,
+      "scene": "evidence"
+    },
+    {
+      "kind": "synthetic",
+      "paragraph": 8,
+      "scene": "close"
+    }
+  ],
+  "scenes": {
+    "hook": {
+      "chapter": "01 / THE QUESTION",
+      "headline": "SAME GAME.\nSAME STANDARD?",
+      "strap": "ARGENTINA / WORLD CUP 2026",
+      "status": "CREATOR COMMENTARY",
+      "source": "Opinion; illustrations are not match replays",
+      "claim_ids": [
+        "OP-01"
+      ]
+    },
+    "draw": {
+      "chapter": "02 / THE DRAW",
+      "headline": "PROTECTED\nPATHS",
+      "strap": "SPAIN / ARGENTINA",
+      "status": "RULE CONFIRMED",
+      "source": "FIFA draw procedures / 25 Nov 2025",
+      "claim_ids": [
+        "DRAW-01",
+        "DRAW-02"
+      ],
+      "note": "IF BOTH WON THEIR GROUPS\nFrance and England also received protection"
+    },
+    "egypt": {
+      "chapter": "03 / EGYPT",
+      "headline": "GOAL.\nTHEN NO GOAL.",
+      "strap": "7 JUL 2026 / ROUND OF 16",
+      "status": "DECISION CONFIRMED",
+      "source": "FIFA / 9 Jul 2026; APF match feed",
+      "claim_ids": [
+        "EGY-01",
+        "EGY-03"
+      ]
+    },
+    "salah": {
+      "chapter": "04 / THE COMPARISON",
+      "headline": "DIFFERENT\nJUDGMENT",
+      "strap": "SALAH / ALVAREZ",
+      "status": "CONTACT DISPUTED",
+      "source": "FIFA / 9 Jul 2026: checked; normal contact",
+      "claim_ids": [
+        "EGY-02"
+      ],
+      "note": "FIFA: CHECKED / NO FOUL\nEgypt disputed the decision"
+    },
+    "austria": {
+      "chapter": "05 / AUSTRIA",
+      "headline": "THE GOAL\nSTOOD",
+      "strap": "22 JUN 2026 / MESSI 38'",
+      "status": "CHALLENGE DISPUTED",
+      "source": "FIFA match report; ORF / 22 Jun; GOAL",
+      "claim_ids": [
+        "AUT-01",
+        "AUT-02"
+      ]
+    },
+    "check": {
+      "chapter": "06 / HOW VAR WORKS",
+      "headline": "CHECK\nIS NOT REVIEW",
+      "strap": "SILENT CHECK / MONITOR REVIEW",
+      "status": "PROTOCOL",
+      "source": "IFAB VAR protocol; FIFA / 9 Jul 2026",
+      "claim_ids": [
+        "VAR-01"
+      ]
+    },
+    "evidence": {
+      "chapter": "07 / MY READ",
+      "headline": "THE STORY.\nTHE RIVAL.",
+      "strap": "MESSI / RONALDO",
+      "status": "CREATOR OPINION",
+      "source": "Rivalry metaphor; not evidence of arranged results",
+      "claim_ids": [
+        "OP-02"
+      ]
+    },
+    "close": {
+      "chapter": "08 / THE DEMAND",
+      "headline": "ONE STANDARD.\nBOTH SHIRTS.",
+      "strap": "FULL BUILD-UPS. CLEAR REASONS.",
+      "status": "CREATOR OPINION",
+      "source": "The case is consistency; fixing is not established",
+      "claim_ids": [
+        "OP-01"
+      ]
+    }
+  }
+}

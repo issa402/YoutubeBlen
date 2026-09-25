@@ -1,6 +1,16 @@
 # Current Status
 
-Last updated: 2026-09-18
+Last updated: 2026-09-25
+
+## Completed short — Same Standard, September 25
+
+Source and Mac guide: `episodes/002-ronaldo-hate-psychology/shorts/same-standard/README.md`. Finished video: `.studio/shorts/consistent-rules/final-hd/same-standard.mp4` — 86.4 seconds, native 1080x1920, 30 fps, 2,592 frames, 16,630,514 bytes. All encoded frames decoded successfully. Nine encoded opening/middle/ending samples were inspected. The final AAC stream decoded to exactly 4,147,200 samples at 48 kHz; no truncation or decode error. `validation.json` preserves the video hash and timing results.
+
+Voiceover contains 4.88 seconds of the supplied recording and named stock Kokoro speech for the revised first-person argument; it is not a voice clone. 191 of 198 script words matched ASR directly; seven timings are estimated. The mix measures -16.55 LUFS and -1.48 dB true peak. Creator preference is saved in explicit local feedback; Hermes did not execute generation.
+
+Canonical Blender: `blender/rules_short_scene.py`, `rules_short_art.py`, `animation_compat.py`. The 21-camera scene uses articulated anonymous figures and an original packed background. Figures are stylized illustrations, not exact player likenesses or forensic match replays. The full WAV-packed editable scene remains in `.studio/shorts/consistent-rules/scene-final-hd/consistent-rules.blend`. The Mac launcher `bash tools/run_same_standard.sh` rebuilds from source using the included 815 KB `assets/narration.ogg`, packs the audio at frame 1, and opens Blender. Native Mac execution remains unverified; the removed Blender 5 Action.fcurves dependency has been replaced with layered channelbag traversal.
+
+184 tests and 11 subtests passed before the final compatibility fix; nine targeted tests now pass, including three new action traversal regressions. The rebuilt compressed-audio packet passed native Blender 4.5.13 checks with exactly 2,592 audio frames packed. The source package, compact narration and Mac guide are ready; the final delivery response records the pushed commit. Existing pip audit reports 12 findings in the installed pip package; no dependencies were added. Full studio coverage previously measured 93%.
 
 ## Latest animation revision — September 18
 

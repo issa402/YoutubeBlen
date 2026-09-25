@@ -1,5 +1,15 @@
 # Decision Log
 
+## 2026-09-25 — Mac playback includes compact narration
+
+Version the 815 KB finished OGG mix alongside the short so an ordinary pull and `bash tools/run_same_standard.sh` produces an editable, audible Blender scene. Do not publish the full raw recording, large WAV files, MP4, frame sequence or generated blend through Git. Keep final captions and source graphics in the Windows finishing pass; distinguish that finished MP4 from the editable viewport. Use layered Action channelbags across Blender 4.5/5.x, and copy the authored flat/texture Workbench settings into the saved Solid viewport (Rendered mode can reset on reopen). Windows verification does not establish native Mac stability.
+
+## 2026-09-24 — Narration drives the new opinion short
+
+Keep the new Same Standard short independent of the long episode and superhero sequence. Use the creator recording for two preserved excerpts and explicitly identify added stock-voice speech; do not imply voice cloning. Derive the shared 30 fps timeline from measured WAV samples, then align script-preserving captions to the edited audio. Verify the muxed mix hash/duration as well as caption identity. Keep original recordings, renders and models ignored. Transfer source, approved art, text and timing through Git; the September 25 delivery decision below also permits the compact finished narration mix.
+
+Use the new reference only for visual direction. Football animation is illustrative, not evidence of the disputed incidents. Preserve the creator's subjective commercial-story/rivalry argument while grounding the selected 2026 examples. Keep the draw's group-winner condition and France/England protection; distinguish a silent check from a monitor review. Exclude the manipulated Spence image as evidence and preserve unverified 2022/2024 and payment allegations as research leads. Hermes did not generate or train this short.
+
 ## 2026-09-18 — Teach the animation as an upgradeable system
 
 Keep the concise implementation walkthrough, and add a separate complete architecture manual inside the portable packet. The manual must distinguish the active 260-frame `action.sh` flow from retained 192-frame files, explain why 30 fps can still look stiff, document canonical-versus-packet ownership, and teach three upgrade routes: layered 2D puppet, Grease Pencil pose animation and fully rigged 3D.

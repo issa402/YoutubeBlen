@@ -1,5 +1,11 @@
 # Start the Blender opening on your Mac
 
+## Newest: the 86.4-second voiced Same Standard short
+
+In Terminal inside your existing clone, run `git pull --ff-only`, then `bash tools/run_same_standard.sh`. This builds and opens the portrait animation with the included narration. Press Space over Blender's timeline to play. [Full instructions and editing guide](../episodes/002-ronaldo-hate-psychology/shorts/same-standard/README.md).
+
+The packets below are older, separate animations.
+
 For the newest **Messi / Mbappe / Ronaldo superhero sequence**, use [the crossover packet](../episodes/002-ronaldo-hate-psychology/mac/superhero-crossover/README.md). It recreates the four-shot reference as a revised eight-second sequence with a side-profile pointing shot.
 
 For the latest **floating Messi cartoon opening**, follow [the new packet instructions](../episodes/002-ronaldo-hate-psychology/mac/messi-floating/README.md). That clip is 12 seconds and opens directly in a clean camera view. The guide below applies to the earlier three-set 30-second opening.
