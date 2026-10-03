@@ -193,7 +193,7 @@ class CreatorHandler(BaseHTTPRequestHandler):
                         break
                     self.wfile.write(block)
                     remaining -= len(block)
-        except (BrokenPipeError, ConnectionResetError):
+        except (BrokenPipeError, ConnectionResetError, ConnectionAbortedError):
             pass
 
     def do_POST(self):
