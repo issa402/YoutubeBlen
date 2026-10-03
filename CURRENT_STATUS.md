@@ -1,6 +1,10 @@
 # Current Status
 
-Last updated: 2026-10-02
+Last updated: 2026-10-03
+
+## Hermes Agent connection — October 3
+
+After creator feedback that the new desk had used a custom stage manager rather than the suggested orchestration repos, added a genuine selectable Hermes Agent backend to `studio/creator_worker.py`. The installed Hermes CLI v0.21.0 receives a project-stage handoff through `--query-file` and an isolated `.studio/hermes-home` profile, requesting `web` tools only, eight tool turns and a finite run budget. An environment allowlist prevents inherited Hermes dispatcher and bypass flags from widening that request. `--backend hermes` without `--execute` prepares only; actual inference still requires an explicit model and provider setup in that profile or an allowed provider API key. Candidate stdout, which may include session information, stays unapproved. The desk now shows the exact Hermes command for a prepared stage. No paid Hermes call was made, so provider authentication, model quality and cost remain unverified. The full suite passed 217 tests and 17 subtests before the environment hardening; 28 targeted tests and six subtests passed afterward. Paperclip is still not installed or connected; it would be a separate orchestration control plane. Updated `tools/CREATOR_SYSTEM.md` to make this boundary explicit.
 
 ## Creator Studio orchestration — October 2
 

@@ -266,5 +266,5 @@ class CreatorKernel:
                 'integrations':[
                     {'name':'HyperFrames','status':'installed' if (self.root/'integrations/creator/node_modules/hyperframes').is_dir() else 'missing'},
                     {'name':'Blender','status':'existing project scripts'},
-                    {'name':'Hermes','status':'source present' if (self.root/'.studio/repos/hermes-agent').is_dir() else 'missing'},
+                    {'name':'Hermes','status':'installed · optional worker' if any((self.root/path).is_file() for path in ('.studio/envs/hermes/Scripts/hermes.exe', '.studio/envs/hermes/bin/hermes')) else 'missing'},
                     {'name':'Paperclip','status':'not connected'}]}

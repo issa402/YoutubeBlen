@@ -77,6 +77,10 @@ function renderProjects(projects) {
           toast(`Handoff saved: ${result.path} (${result.estimated_tokens} estimated tokens).`);
         }));
       } else if (stage.state === "running") {
+        if (stage.handoff) {
+          item.append(node("small", "", "Agent handoff ready"));
+          item.append(node("code", "worker-command", `.\\creator.ps1 worker run ${project.id} ${stage.stage} --backend hermes --execute --model YOUR_MODEL`));
+        }
         item.append(actionButton("Complete", async () => {
           const artifact = window.prompt("Project-relative path to the completed, reviewed file:");
           if (!artifact) return;

@@ -1,7 +1,7 @@
-"""Explicit, bounded Codex CLI handoffs for the local creator kernel.
+"""Explicit, bounded Codex CLI or Hermes handoffs for the local creator kernel.
 
 Preparation is the default. Execution always requires --execute and --model.
-The subprocess uses read-only mode; its final text is an unapproved artifact.
+Codex uses read-only mode; Hermes is limited to web tools. Both outputs are unapproved.
 """
 import argparse
 from contextlib import contextmanager
@@ -19,6 +19,14 @@ import uuid
 
 MAX_OUTPUT_BYTES = 8 * 1024 * 1024
 MAX_PROMPT_BYTES = 128 * 1024
+HERMES_ENV_ALLOW = frozenset({
+    'PATH', 'PATHEXT', 'SYSTEMROOT', 'WINDIR', 'COMSPEC', 'TEMP', 'TMP',
+    'USERPROFILE', 'APPDATA', 'LOCALAPPDATA', 'PROGRAMDATA', 'HOMEDRIVE',
+    'HOMEPATH', 'HOME', 'LANG', 'LC_ALL', 'TMPDIR', 'SSL_CERT_FILE',
+    'REQUESTS_CA_BUNDLE', 'HTTP_PROXY', 'HTTPS_PROXY', 'NO_PROXY',
+    'OPENAI_API_KEY', 'ANTHROPIC_API_KEY', 'OPENROUTER_API_KEY',
+    'XAI_API_KEY', 'GEMINI_API_KEY', 'GOOGLE_API_KEY',
+})
 
 
 def contained(root, path):
@@ -62,6 +70,32 @@ def build_codex_command(launcher, root, response, model):
             '--output-last-message', str(response), '-']
 
 
+def build_hermes_command(launcher, root, prompt_path, model, timeout):
+    """Run pinned Hermes with only read-only web tools and a finite turn budget."""
+    if not isinstance(model, str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._:/-]{0,127}', model):
+        raise ValueError('Select an explicit available model name (1–128 safe characters).')
+    return [*launcher, 'chat', '--query-file', str(prompt_path), '--oneshot', '--quiet',
+            '--model', model, '--toolsets', 'web', '--max-turns', '8',
+            '--run-budget', str(timeout), '--source', 'tool', '--in', str(root)]
+
+
+def resolve_hermes(root):
+    root = Path(root)
+    executable = root / '.studio/envs/hermes' / ('Scripts/hermes.exe' if os.name == 'nt' else 'bin/hermes')
+    if not executable.is_file():
+        raise FileNotFoundError('Hermes is not installed here. Run python tools/setup_integrations.py hermes.')
+    return [str(executable)]
+
+
+def hermes_environment(root, source=None):
+    """Pass needed OS/provider settings without inherited Hermes control flags."""
+    values = os.environ if source is None else source
+    env = {key: value for key, value in values.items() if key.upper() in HERMES_ENV_ALLOW}
+    env['HERMES_HOME'] = str(Path(root) / '.studio/hermes-home')
+    env['HERMES_ACCEPT_HOOKS'] = '0'
+    return env
+
+
 @contextmanager
 def worker_lock(folder):
     folder = Path(folder)
@@ -91,14 +125,18 @@ def stop_process(process):
     process.wait(timeout=10)
 
 
-def execute_process(command, prompt, folder, timeout):
-    events, errors = folder / 'events.jsonl', folder / 'stderr.log'
+def execute_process(command, prompt, folder, timeout, *, output_name='events.jsonl', env=None):
+    events, errors = folder / output_name, folder / 'stderr.log'
     kwargs = {'creationflags': subprocess.CREATE_NEW_PROCESS_GROUP} if os.name == 'nt' else {'start_new_session': True}
+    if env is not None:
+        kwargs['env'] = env
     with events.open('wb') as out, errors.open('wb') as err:
-        process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=out, stderr=err, **kwargs)
+        process = subprocess.Popen(command, stdin=subprocess.PIPE if prompt is not None else subprocess.DEVNULL,
+                                   stdout=out, stderr=err, **kwargs)
         try:
-            process.stdin.write(prompt.encode('utf-8'))
-            process.stdin.close()
+            if prompt is not None:
+                process.stdin.write(prompt.encode('utf-8'))
+                process.stdin.close()
             started = time.monotonic()
             while process.poll() is None:
                 if time.monotonic() - started >= timeout:
@@ -130,17 +168,23 @@ def read_usage(events):
     return usage
 
 
-def run_worker(root, handoff, *, execute=False, model=None, timeout=600, launcher=None, output_parent=None):
+def run_worker(root, handoff, *, execute=False, model=None, timeout=600, launcher=None,
+               output_parent=None, backend='codex'):
     """Preserve input/output; never approve a candidate or mutate canonical narration."""
     if isinstance(timeout, bool) or not isinstance(timeout, int) or not 30 <= timeout <= 1800:
         raise ValueError('Worker timeout must be an integer from 30 to 1800 seconds.')
+    if backend not in ('codex', 'hermes'):
+        raise ValueError('Worker backend must be codex or hermes.')
     root = Path(root).resolve()
     source = contained(root, handoff)
     if not source.is_file() or not 0 < source.stat().st_size <= MAX_PROMPT_BYTES:
         raise ValueError('Handoff must be a nonempty UTF-8 file no larger than 128 KiB.')
     prompt = source.read_text(encoding='utf-8-sig')
     if execute:
-        build_codex_command(['codex'], root, root / 'response.md', model)
+        if backend == 'codex':
+            build_codex_command(['codex'], root, root / 'response.md', model)
+        else:
+            build_hermes_command(['hermes'], root, root / 'prompt.md', model, timeout)
     worker_folder = contained(root, '.studio/creator/workers')
     parent = contained(root, output_parent) if output_parent else worker_folder
     folder = contained(root, parent / uuid.uuid4().hex)
@@ -151,7 +195,7 @@ def run_worker(root, handoff, *, execute=False, model=None, timeout=600, launche
                    'Preserve the creator thesis while labeling unsupported claims. Do not claim an animation '
                    'was rendered or a source verified unless you actually inspected it.\n\n')
     prompt_path.write_text(instruction + prompt, encoding='utf-8')
-    result = {'status': 'prepared', 'provider_called': False, 'approved': False,
+    result = {'status': 'prepared', 'backend': backend, 'provider_called': False, 'approved': False,
               'prompt': str(prompt_path), 'response': str(response), 'report': str(report),
               'model': model, 'timeout_seconds': timeout, 'cost_usd': None,
               'cost_note': 'CLI uses its existing authentication. Subscription/API charges are external; no price is assumed.',
@@ -159,15 +203,23 @@ def run_worker(root, handoff, *, execute=False, model=None, timeout=600, launche
     try:
         if execute:
             with worker_lock(worker_folder):
-                command = build_codex_command(launcher or resolve_codex(), root, response, model)
+                if backend == 'codex':
+                    command = build_codex_command(launcher or resolve_codex(), root, response, model)
+                    env, output_name, stdin_prompt = None, 'events.jsonl', instruction + prompt
+                else:
+                    command = build_hermes_command(launcher or resolve_hermes(root), root, prompt_path, model, timeout)
+                    env = hermes_environment(root)
+                    output_name, stdin_prompt = 'response.md', None
                 result['command'] = command
                 result['provider_called'] = 'attempted; provider receipt is not independently verified'
-                result['exit_code'] = execute_process(command, instruction + prompt, folder, timeout)
-                result['usage'] = read_usage(folder / 'events.jsonl')
+                result['exit_code'] = execute_process(command, stdin_prompt, folder, timeout,
+                                                      output_name=output_name, env=env)
+                if backend == 'codex':
+                    result['usage'] = read_usage(folder / 'events.jsonl')
                 if result['exit_code'] != 0:
-                    raise RuntimeError(f'Codex exited {result["exit_code"]}; inspect stderr.log and events.jsonl.')
+                    raise RuntimeError(f'{backend} exited {result["exit_code"]}; inspect stderr.log and worker output.')
                 if not response.is_file() or not 0 < response.stat().st_size <= 2 * 1024 * 1024:
-                    raise ValueError('Codex did not produce a nonempty final message within the 2 MiB limit.')
+                    raise ValueError(f'{backend} did not produce a nonempty response within the 2 MiB limit.')
                 result['status'] = 'candidate_ready'
     except (OSError, RuntimeError, ValueError, subprocess.SubprocessError) as exc:
         result = {**result, 'status': 'failed', 'error': str(exc)}
@@ -176,7 +228,7 @@ def run_worker(root, handoff, *, execute=False, model=None, timeout=600, launche
 
 
 def parser():
-    command = argparse.ArgumentParser(description='Local creator orchestration. Handoffs are free; --execute calls Codex explicitly.')
+    command = argparse.ArgumentParser(description='Local creator orchestration. Handoffs are free; --execute calls the chosen agent explicitly.')
     command.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
     sub = command.add_subparsers(dest='command', required=True)
     create = sub.add_parser('create')
@@ -191,6 +243,7 @@ def parser():
         action.add_argument('--max-chars', type=int, default=16000)
         if name == 'run':
             action.add_argument('--execute', action='store_true')
+            action.add_argument('--backend', choices=('codex', 'hermes'), default='codex')
             action.add_argument('--model')
             action.add_argument('--timeout', type=int, default=600)
     complete = sub.add_parser('complete')
@@ -220,7 +273,10 @@ def dispatch(kernel, args):
     if args.command == 'handoff':
         return kernel.prepare_handoff(args.project, args.stage, max_chars=args.max_chars)
     if args.execute:
-        build_codex_command(['codex'], args.root, args.root / 'response.md', args.model)
+        if args.backend == 'codex':
+            build_codex_command(['codex'], args.root, args.root / 'response.md', args.model)
+        else:
+            build_hermes_command(['hermes'], args.root, args.root / 'prompt.md', args.model, args.timeout)
     project = kernel.get_project(args.project)
     stage = next((s for s in project['stages'] if s['stage'] == args.stage), None)
     if stage is None:
@@ -231,7 +287,7 @@ def dispatch(kernel, args):
         packet = kernel.prepare_handoff(args.project, args.stage, max_chars=args.max_chars)
     parent = Path('.studio/creator/projects') / project['id'] / 'workers'
     result = run_worker(args.root, packet['path'], execute=args.execute, model=args.model,
-                        timeout=args.timeout, output_parent=parent)
+                        timeout=args.timeout, output_parent=parent, backend=args.backend)
     if result['status'] == 'failed':
         kernel.fail_stage(args.project, args.stage, result['error'])
     return result

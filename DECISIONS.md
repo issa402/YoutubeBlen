@@ -1,5 +1,9 @@
 # Decision Log
 
+## 2026-10-03 — Hermes Agent as an optional stage worker
+
+Keep the local stage manager as the current authority and let its bounded handoff execute through the already installed Hermes Agent as well as Codex CLI. Require an explicit backend, model and execute choice. Request upstream `web` tools, eight turns and a timed one-shot; pass only an allowlist of operating-system/provider environment variables so inherited Hermes control flags cannot add tools. Preserve stdout as an unapproved candidate, which may include session details. Creator examples enter via the handoff; the separate Hermes profile needs its own provider setup. Paperclip, ViMax, OpenRig and Understand-Anything are not active orchestration components.
+
 ## 2026-10-02 — Thin local creator orchestrator and render boundaries
 
 Use the existing episode/source workflow as the authority and add a small local SQLite stage machine rather than installing Paperclip or OpenRig as another state owner. The production desk may prepare bounded prompts and play local files, but it cannot call a provider, publish, push or mark missing outputs complete. Optional Codex CLI worker execution is explicit, read-only, time-limited and produces an unapproved candidate. Store creator style corrections only from explicit approved/rejected examples, scoped to the active episode. Do not describe retrieval memory as training or character estimates as measured token savings.

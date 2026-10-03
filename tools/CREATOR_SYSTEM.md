@@ -29,6 +29,15 @@ The CLI has the same stages:
 
 This runs a bounded, read-only Codex process through the existing CLI login. Its response is a candidate in `.studio/creator/projects/PROJECT_ID/workers/`, not an approved stage. The provider's actual price/usage depends on your account; the worker records reported token usage but does not guess dollars. Review the candidate and source ledger, then use `complete PROJECT_ID research --artifact episodes/002-ronaldo-hate-psychology/REVIEWED_FILE.md`. Artifacts must be nonempty files inside that episode or the project worker folder. A later stage cannot start until prior stages are completed. `fail` and `retry` handle errors, with a three-attempt limit.
 
+The installed [Hermes Agent](https://github.com/NousResearch/hermes-agent) is now a **real alternative worker** for a prepared stage, using the pinned `.studio/envs/hermes` installation and its separate `.studio/hermes-home` profile:
+
+```powershell
+.\creator.ps1 worker run PROJECT_ID research --backend hermes
+.\creator.ps1 worker run PROJECT_ID research --backend hermes --execute --model MODEL_NAME --timeout 300
+```
+
+The first line only prepares a packet. The second asks Hermes to run it. **Before execution, configure a provider in the same `.studio/hermes-home` profile with `.\hermes-studio.ps1 model`, or supply a supported provider API key in the launching environment.** A login in your normal global Hermes profile does not automatically transfer to this isolated profile. The adapter passes the prompt with `--query-file`, requests the upstream `web` toolset, limits it to eight tool iterations and the requested wall-clock budget, and captures stdout as an **unapproved candidate**; upstream quiet output may also include session information. It passes an allowlist of process/provider variables so inherited Hermes dispatcher or approval-bypass flags cannot add tools to this run. It does not request terminal, file-write or delegation tools. Hermes may still use provider tokens; this adapter does not know the bill or claim that the Codex Desktop subscription covers it. Inspect `report.json` and `stderr.log` if the attempt fails. The earlier `hermes-studio.ps1` interactive workflow remains separate.
+
 ## What each part does
 
 | Component | Technical job | State or output |
@@ -44,7 +53,7 @@ This runs a bounded, read-only Codex process through the existing CLI login. Its
 
 The SQLite memory stores **only** examples you explicitly save: raw take, approved wording, rejected wording and why it missed. It is retrieval memory, not model training. A stage handoff retrieves at most three recent examples for that episode plus current project corrections and bounded source excerpts. Approximate token counts use characters/4 and exclude runtime instructions, tools and model reasoning. No token saving is claimed without a measured before/after run.
 
-The project is the orchestrator. Research and writing can use a chosen Codex CLI model when you opt in. Audio and assembly use deterministic local tools. Blender and HyperFrames are renderers, not interchangeable agents. The desk does not need Paperclip or OpenRig to run: both would add another scheduler/agent layer before we have measured a bottleneck. Hermes remains an optional separate agent through `hermes-studio.ps1`; it does not read the new SQLite memory unless we intentionally add an adapter. ViMax is not on the critical path, and the work Mac should receive only approved repository content. Do not run personal agent servers or transfer private/company data there.
+The local SQLite stage manager remains the orchestrator. Research and writing can use a chosen Codex CLI model **or Hermes Agent** when you opt in; both receive the episode-scoped memory inside the prepared handoff. Audio and assembly use deterministic local tools. Blender and HyperFrames are renderers, not interchangeable agents. This is not Paperclip's multi-agent company scheduler: [Paperclip](https://github.com/paperclipai/paperclip) has Codex and Hermes adapters, budgets and a separate server/database, but it is **not installed or connected here**. OpenRig currently does not support native Windows. ViMax and Understand-Anything source are available locally as references, not active production workers. The work Mac should receive only approved repository content; do not run personal agent servers or transfer private/company data there.
 
 ## Reproduce the working tactical video proof
 
