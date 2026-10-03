@@ -1,0 +1,15 @@
+{
+  "name": "youtube-creator-tools",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Pinned local rendering tools; no automatic skill or provider configuration",
+  "scripts": {
+    "hyperframes": "hyperframes",
+    "audit": "npm audit --omit=dev"
+  },
+  "dependencies": {
+    "ffprobe-static": "3.1.0",
+    "gsap": "3.14.2",
+    "hyperframes": "0.8.114"
+  }
+}

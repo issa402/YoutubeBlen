@@ -1,0 +1,58 @@
+{
+  "review_date": "2026-10-02",
+  "references": [
+    {
+      "id": "R01",
+      "filename": "20261003-0002-08.0937913.mp4",
+      "frames": 445,
+      "fps": 30.0,
+      "duration": 14.833333333333334,
+      "width": 814,
+      "height": 498,
+      "style": "2d-presenter",
+      "contact_sheet": "R01.jpg",
+      "analysis": "sampled visuals; audio not reviewed",
+      "sha256": "dab847593fc58c9837c1d18658b5f96f7dba8c99cf5a939e605b865211a73499"
+    },
+    {
+      "id": "R02",
+      "filename": "20261003-0003-28.4169578.mp4",
+      "frames": 350,
+      "fps": 30.0,
+      "duration": 11.666666666666666,
+      "width": 1138,
+      "height": 896,
+      "style": "3d-rock-ledge",
+      "contact_sheet": "R02.jpg",
+      "analysis": "sampled visuals; audio not reviewed",
+      "sha256": "e7125643f5375066c576fc6baad8dadf5048252dd09129b34c219b8304b547f4"
+    },
+    {
+      "id": "R03",
+      "filename": "20261003-0006-32.9394945.mp4",
+      "frames": 281,
+      "fps": 30.0,
+      "duration": 9.366666666666667,
+      "width": 1674,
+      "height": 994,
+      "style": "wireframe-acting",
+      "contact_sheet": "R03.jpg",
+      "analysis": "sampled visuals; audio not reviewed",
+      "sha256": "6996d89980df8f7f61ef9d7894ec9b778662c74d38c453a48f2a4366a49f4b63"
+    },
+    {
+      "id": "R04",
+      "filename": "20261003-0007-59.6956792.mp4",
+      "frames": 200,
+      "fps": 30.0,
+      "duration": 6.666666666666667,
+      "width": 1048,
+      "height": 994,
+      "style": "football-tactics",
+      "contact_sheet": "R04.jpg",
+      "analysis": "sampled visuals; audio not reviewed",
+      "sha256": "7ef7d92a135efc00f54e54c1d74c8b1d468a8a7950100a728a6a97c90e3eff50"
+    }
+  ],
+  "guide": "../ANIMATION_REFERENCE_LIBRARY.md"
+}

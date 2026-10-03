@@ -1,0 +1,21 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Creator Studio · Tactical proof</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0a1920;color:#f6f0dd;font-family:Arial,sans-serif}#root{position:relative;width:1280px;height:720px;overflow:hidden;background:linear-gradient(135deg,#091a24,#153635)}.eyebrow{position:absolute;left:70px;top:54px;color:#b8e8b2;font-size:15px;letter-spacing:5px}.title{position:absolute;left:70px;top:118px;width:455px;font-weight:850;font-size:60px;line-height:1.04}.rule{position:absolute;left:70px;top:282px;width:65px;height:4px;background:#f2bd69}.sub{position:absolute;left:70px;top:311px;color:#adc5c7;font-size:25px;line-height:1.35}#pitch{position:absolute;left:560px;top:72px;width:630px;height:500px;filter:drop-shadow(0 15px 26px #0008)}.caption{position:absolute;left:70px;right:70px;bottom:70px;opacity:0;font-size:32px;font-weight:750;line-height:1.15}.foot{position:absolute;bottom:22px;left:70px;color:#9eb7b6;font-size:13px;letter-spacing:1.5px}.line{fill:none;stroke:#c2ded1;stroke-width:2;opacity:.8}.opponent{fill:#547f8b;stroke:#bbd9d5;stroke-width:2}.player{fill:#f1ba67;stroke:#fff0d8;stroke-width:3}.trail{fill:none;stroke:#baf5a5;stroke-width:4;stroke-dasharray:11 9}.ring{fill:none;stroke:#baf5a5;stroke-width:3}
+</style></head><body><div id="root" data-composition-id="root" data-width="1280" data-height="720" data-fps="{{FPS}}" data-duration="{{DURATION}}">
+<div class="eyebrow">ISAAC / CREATOR STUDIO</div><div class="title">Show the run.<br>Tell the story.</div><div class="rule"></div><div class="sub">A reusable tactical scene.<br>Built around the voice.</div>
+<svg id="pitch" viewBox="0 0 650 525"><rect width="650" height="525" rx="18" fill="#17463d"/><path d="M0 105H650M0 210H650M0 315H650M0 420H650" stroke="#1d5148" stroke-width="104"/>
+<rect class="line" x="30" y="30" width="590" height="465"/><path class="line" d="M325 30V495M30 150H130V375H30M620 150H520V375H620M30 215H65V310H30M620 215H585V310H620"/><circle class="line" cx="325" cy="262" r="68"/>
+<path id="runline" class="trail" d="M210 400Q300 300 455 210"/><circle class="opponent" cx="470" cy="120" r="19"/><circle class="opponent" cx="420" cy="255" r="19"/><circle class="opponent" cx="490" cy="365" r="19"/>
+<g id="runner"><circle class="player" cx="210" cy="400" r="22"/><text x="210" y="407" text-anchor="middle" fill="#173432" font-size="20" font-weight="bold">7</text></g><g id="ball"><circle cx="300" cy="130" r="11" fill="#fff"/><circle cx="300" cy="130" r="4" fill="#142b35"/></g><circle id="target" class="ring" cx="455" cy="210" r="36"/>
+</svg>{{CAPTIONS}}<div class="foot">R04 STYLE · ORIGINAL DEMONSTRATION · NOT A MATCH RECONSTRUCTION</div>{{AUDIO}}</div>
+<script src="gsap.min.js"></script><script>
+const duration={{DURATION}},tl=gsap.timeline({paused:true});
+tl.from('.title',{opacity:0,y:30,duration:.65},0);
+tl.from('#pitch',{opacity:0,scale:.92,transformOrigin:'50% 50%',duration:.7},0);
+tl.from('#runline',{opacity:0,duration:.5},duration*.18);
+tl.to('#runner',{x:245,y:-190,duration:duration*.43,ease:'power2.inOut'},duration*.2);
+tl.to('#ball',{x:155,y:80,duration:duration*.26,ease:'power1.inOut'},duration*.42);
+tl.fromTo('#target',{opacity:0,scale:.5,transformOrigin:'455px 210px'},{opacity:1,scale:1,duration:.7},duration*.6);
+{{CUES}}
+tl.to({}, {duration:.001},duration-.001);window.__timelines={root:tl};
+</script></body></html>

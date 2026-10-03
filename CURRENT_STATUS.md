@@ -1,6 +1,16 @@
 # Current Status
 
-Last updated: 2026-09-25
+Last updated: 2026-10-02
+
+## Creator Studio orchestration — October 2
+
+Built a local Creator Desk (`.\creator.ps1 desk`) with a SQLite stage machine, episode-scoped approved writing examples, bounded handoffs, optional read-only Codex CLI worker packets, a browser production board and local media review. Stages are research, script, audio, storyboard, animation, finish and review. Completed stages require a real file in the active episode or worker folder. The desk itself makes no model, paid, publishing or Git calls. A worker only calls Codex with explicit `--execute --model`; provider cost is unknown until reported by the account. See `tools/CREATOR_SYSTEM.md`.
+
+Pinned HyperFrames, GSAP and ffprobe under `integrations/creator/`; npm audit reported zero findings. A local original `R04` tactical board proof with stock Kokoro guide speech rendered at `.studio/creator-demo/tactical-r04/final.mp4`: 6.133 seconds, 1280×720, 30 fps. It passed full MP4 decode, duration/FPS checks, AAC audio-stream inspection and midpoint visual inspection. This is a style and audio-clock proof, not a replacement for existing Blender character animation or an episode release. The browser/API returned two episodes, four references and ranged media playback. Focused suite passed 25 tests and six subtests; full suite passed 212 tests and 17 subtests before a targeted security fix, after which 12 relevant tests and six subtests passed. JavaScript syntax passed. Security review found and fixed a concurrent budget-reservation race and bounded local HTTP connections. The existing Python environment audit found 28 advisories in pip, PyJWT and urllib3; the new Creator Studio source does not use those packages. Mac execution and browser visual automation remain unverified. Large outputs and local database are ignored by Git.
+
+## Reference and workflow audit — October 2
+
+Added `tools/ANIMATION_REFERENCE_LIBRARY.md` and portable `tools/animation-references/catalog.json` with four new clip hashes, dimensions, durations, contact sheets and per-style production recipes. Re-sampled the September 24 dark comic reference; September 17 raw action recording was unavailable at its supplied temporary path, so prior corrections/project records anchor that entry. Audio was not transcribed or evaluated this turn. Defined narration-first animatic/shot timing, honest 2.5D versus rigged-motion limits, and repository decisions for HyperFrames, Impeccable, CodeGraph, Caveman, OpenRig and Paperclip. No new renderer, integration, provider call or animation was installed/run; these are documented recommendations. Existing video source preserved.
 
 ## Completed short — Same Standard, September 25
 

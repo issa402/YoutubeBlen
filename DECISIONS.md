@@ -1,5 +1,18 @@
 # Decision Log
 
+## 2026-10-02 — Thin local creator orchestrator and render boundaries
+
+Use the existing episode/source workflow as the authority and add a small local SQLite stage machine rather than installing Paperclip or OpenRig as another state owner. The production desk may prepare bounded prompts and play local files, but it cannot call a provider, publish, push or mark missing outputs complete. Optional Codex CLI worker execution is explicit, read-only, time-limited and produces an unapproved candidate. Store creator style corrections only from explicit approved/rejected examples, scoped to the active episode. Do not describe retrieval memory as training or character estimates as measured token savings.
+
+Use pinned HyperFrames with GSAP for tactical graphics and captions synchronized to a measured WAV clock; keep Blender as the path for articulated character acting and 3D action. A validated technical render demonstrates this particular path, not exact reference recreation, factual accuracy of a scene or Mac stability. Keep generated MP4/audio, browser cache and SQLite state ignored. Portable code and small visual reference contact sheets may be versioned; only employer-approved repository content may reach the work Mac.
+
+## 2026-10-02 — Reference-specific rendering and narration-first planning
+
+Use stable reference IDs and concise visual memory in `tools/ANIMATION_REFERENCE_LIBRARY.md`. Recommend HyperFrames for presenter/diagram/tactical-board graphics; use Blender rigs and replacement drawings/Grease Pencil for character performance. A 30 fps output or translated sprite does not establish lifelike motion. Lock the final audio and review a low-resolution animatic before long detailed renders. Reference style, choreography and narration timing are separately specified.
+
+Keep desktop-led production until a bounded background workflow justifies Paperclip. OpenRig currently lacks supported native Windows operation and does not fit the restricted render Mac. Compression tools are measured experiments on internal outputs, not a global prose style for scripts or evidence. This is a design decision, not an installation or measured-savings claim.
+
+
 ## 2026-09-25 — Mac playback includes compact narration
 
 Version the 815 KB finished OGG mix alongside the short so an ordinary pull and `bash tools/run_same_standard.sh` produces an editable, audible Blender scene. Do not publish the full raw recording, large WAV files, MP4, frame sequence or generated blend through Git. Keep final captions and source graphics in the Windows finishing pass; distinguish that finished MP4 from the editable viewport. Use layered Action channelbags across Blender 4.5/5.x, and copy the authored flat/texture Workbench settings into the saved Solid viewport (Rendered mode can reset on reopen). Windows verification does not establish native Mac stability.
