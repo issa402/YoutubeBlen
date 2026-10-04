@@ -1,6 +1,6 @@
 # Creator Studio: local production system
 
-This is the running architecture in this repository, not a promise of a fully autonomous video factory. The Windows computer is the control desk. The Mac is an approved Git/Blender render workstation. A project advances through research → script → audio → storyboard → animation → finish → review, with a real artifact required at each stage. Nothing publishes automatically.
+This is the running architecture in this repository, not a promise of a fully autonomous video factory. The Windows computer is the control desk. The Mac is an approved Git/Blender render workstation. Paperclip now manages agent assignments and runs; this older Creator Desk remains useful for media, creator feedback and deterministic artifact checks. See `tools/PAPERCLIP_STUDIO.md` to start the agent board. Nothing publishes automatically.
 
 ## Start on Windows
 
@@ -53,7 +53,7 @@ The first line only prepares a packet. The second asks Hermes to run it. **Befor
 
 The SQLite memory stores **only** examples you explicitly save: raw take, approved wording, rejected wording and why it missed. It is retrieval memory, not model training. A stage handoff retrieves at most three recent examples for that episode plus current project corrections and bounded source excerpts. Approximate token counts use characters/4 and exclude runtime instructions, tools and model reasoning. No token saving is claimed without a measured before/after run.
 
-The local SQLite stage manager remains the orchestrator. Research and writing can use a chosen Codex CLI model **or Hermes Agent** when you opt in; both receive the episode-scoped memory inside the prepared handoff. Audio and assembly use deterministic local tools. Blender and HyperFrames are renderers, not interchangeable agents. This is not Paperclip's multi-agent company scheduler: [Paperclip](https://github.com/paperclipai/paperclip) has Codex and Hermes adapters, budgets and a separate server/database, but it is **not installed or connected here**. OpenRig currently does not support native Windows. ViMax and Understand-Anything source are available locally as references, not active production workers. The work Mac should receive only approved repository content; do not run personal agent servers or transfer private/company data there.
+The SQLite stage manager remains a **legacy local artifact workflow**; Paperclip is the agent job board and scheduler. These databases do not automatically sync. Research and writing in Creator Desk can still use a chosen Codex CLI model or Hermes Agent when explicitly invoked. Paperclip currently uses its `codex_local` adapter for four focused roles; its Hermes adapter is not configured. Audio and assembly use deterministic local tools. Blender and HyperFrames are renderers, not interchangeable agents. OpenRig currently does not support native Windows. ViMax and Understand-Anything source are available locally as references, not active production workers. The work Mac should receive only approved repository content; do not run personal agent servers or transfer private/company data there.
 
 ## Reproduce the working tactical video proof
 

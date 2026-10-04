@@ -1,5 +1,11 @@
 # Decision Log
 
+## 2026-10-03 — Adopt Paperclip for local agent dispatch
+
+Use a pinned, loopback-only Paperclip instance on the personal Windows PC as the actual agent job board, with versioned role instructions and episode-specific issues. Keep the existing episode/source files as editorial authority and the Creator Desk as an artifact/media review surface; its SQLite stages are not synchronized to Paperclip. The four roles submit candidates in ignored local workspaces and require human review between evidence, script, animatic and release. Disable timer heartbeats and leave unused roles in backlog. Blender and HyperFrames remain deterministic render paths, and the employer-managed Mac only receives approved Git content for permitted Blender work.
+
+Use Paperclip's `codex_local` ACP engine with noninteractive permission requests denied and sandbox bypass false. The classic CLI sandbox and managed-home symlink failed on this Windows environment; ACP with the existing self-managed Codex login succeeded. Do not force a desktop-only model name into the separate ChatGPT CLI account. Paperclip's reported subscription cost is not a measured dollar cost or token saving. Keep state/secrets ignored, audit the pinned dependency tree, and treat agent output as unapproved until source and playback checks pass.
+
 ## 2026-10-03 — Hermes Agent as an optional stage worker
 
 Keep the local stage manager as the current authority and let its bounded handoff execute through the already installed Hermes Agent as well as Codex CLI. Require an explicit backend, model and execute choice. Request upstream `web` tools, eight turns and a timed one-shot; pass only an allowlist of operating-system/provider environment variables so inherited Hermes control flags cannot add tools. Preserve stdout as an unapproved candidate, which may include session details. Creator examples enter via the handoff; the separate Hermes profile needs its own provider setup. Paperclip, ViMax, OpenRig and Understand-Anything are not active orchestration components.

@@ -1,0 +1,13 @@
+{
+  "name": "youtube-paperclip-control-plane",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Pinned local Paperclip runtime for the creator studio",
+  "dependencies": {
+    "paperclipai": "2026.1001.0"
+  },
+  "overrides": {
+    "@grpc/grpc-js": "1.14.5",
+    "svix": "1.99.1"
+  }
+}
