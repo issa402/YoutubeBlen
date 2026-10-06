@@ -1,5 +1,9 @@
 # Decision Log
 
+## 2026-10-05 — Keep full OpenMontage as an optional second production path
+
+Install the pinned upstream Python/Remotion/Piper stack only in the personal Windows ignored checkout and provide a separate launcher and Backlot board. Do not replace Paperclip's agent jobs or the canonical episode/Blender/HyperFrames pipeline. Default the OpenMontage checkout to a $0 `cap` with no provider key file; the free-mode launcher verifies that policy before opening an interactive Codex session and temporarily removes common media-provider credentials from its process. Require an explicit future budget/provider decision for paid generated clips. A zero-key upstream Remotion demo proves composition but not a complete agent-run soccer production; the first episode must pass the existing evidence and playback gates before adoption.
+
 ## 2026-10-05 — Pin OpenMontage for bounded reference analysis
 
 Use OpenMontage's local scene-detection and frame-sampling tools as an optional Windows reference ingest step. Pin upstream source in the ignored checkout and record its commit in the studio repo lock; keep its AGPL code outside tracked project source. Attach resulting reports to Paperclip visual-direction work only after reviewing the original clip and frames. Preserve Paperclip for agent dispatch and the existing Blender/HyperFrames render paths. A missed R04 scene change demonstrates that automated boundaries are suggestions, not timing authority. Defer the full OpenMontage producer stack until a concrete production gap justifies its dependencies, agent state and provider costs.

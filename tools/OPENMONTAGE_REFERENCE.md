@@ -2,6 +2,8 @@
 
 OpenMontage is an optional **reference-analysis worker** for this studio. Its pinned source is fetched into ignored `.studio/repos/OpenMontage/`; our adapter invokes its real `SceneDetect` and `FrameSampler` classes. Paperclip remains the agent job board, the episode files remain editorial authority, and Blender/HyperFrames remain the renderers. This integration does not claim to run OpenMontage's full 12-pipeline production system.
 
+The separate full OpenMontage workspace is now available on Windows; see [OPENMONTAGE_FULL.md](OPENMONTAGE_FULL.md). This reference adapter remains usable by either production path.
+
 From the YouTube project root in PowerShell:
 
 ```powershell

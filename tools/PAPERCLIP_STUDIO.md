@@ -2,6 +2,8 @@
 
 Paperclip is the local **agent job board and scheduler**. It owns assignments, runs and handoffs. The existing Creator Desk at `http://127.0.0.1:8766` is an artifact/media review tool; its older SQLite stages do not automatically sync to Paperclip. Episode files and the source ledger remain editorial authority. Blender and HyperFrames render visuals; neither is the agent scheduler.
 
+OpenMontage is also available as a **separate optional production path** with its own Backlot board at `http://127.0.0.1:4750`; choose it per video with [OPENMONTAGE_FULL.md](OPENMONTAGE_FULL.md). Paperclip does not dispatch or sync its stages.
+
 ## Start or reproduce
 
 In PowerShell at `C:\Users\Isaac\OneDrive\Desktop\Youtube`:

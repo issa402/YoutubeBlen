@@ -2,6 +2,11 @@
 
 Last updated: 2026-10-05
 
+## Optional full OpenMontage workspace — October 5
+
+Installed the pinned OpenMontage core Python dependencies, Piper package and Remotion composer in the ignored Windows checkout. Its local configuration has a zero-dollar `cap` and no `.env` provider keys. Added `openmontage.ps1` for doctor, Backlot, zero-key demo and a separate interactive free-mode Codex session. `doctor` reports 137 registered tools and `pip check` passes. Backlot is live on loopback port 4750; health returned OK. The upstream `world-in-numbers` zero-key Remotion demo rendered and probed as a 23.062-second 1920×1080/30 fps H.264/AAC MP4. This validates local composition, not a live agent-run soccer video or paid-model quality. `start-free` has not been executed; it would use Codex account allowance and requires a supervised first pilot. See `tools/OPENMONTAGE_FULL.md` for route selection and cost math. Paperclip/Creator Desk remain separate.
+Upstream Remotion dependencies initially had three high and two moderate npm advisories; a patched lock overlay is tracked and cleanly reinstalled with zero npm audit findings. The isolated Python environment initially had pip advisories; pip 26.2.1 and a `pip-audit --path` check now report no known findings. The demo MP4 passed a full FFmpeg decode.
+
 ## OpenMontage reference pilot — October 5
 
 Fetched OpenMontage at pinned commit `9327439db69021ab4b0e2776729bf3b58fdb5a87` into ignored `.studio/repos/OpenMontage/`. Added `tools/openmontage_reference.py`, which invokes upstream `SceneDetect` and `FrameSampler` with local FFmpeg/ffprobe and writes an ignored scene/frame report. No full OpenMontage producer, provider, Backlot or render pipeline was installed. The R04 pilot verified the source hash, extracted 16 frames and returned a report. Its FFmpeg scene detector found only one scene, missing the visually noted mid-clip change; the adapter fell back to even frame sampling and does not claim precise cut detection. `tools/OPENMONTAGE_REFERENCE.md` contains the run command and boundaries; the Paperclip Visual Director can use a supplied report as a candidate input, but it is not auto-dispatched. `claude-mem` was evaluated and deferred because episode-scoped explicit memory already exists and no token-saving comparison has been measured.
