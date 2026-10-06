@@ -1,6 +1,12 @@
 # Current Status
 
-Last updated: 2026-10-03
+Last updated: 2026-10-05
+
+## OpenMontage reference pilot — October 5
+
+Fetched OpenMontage at pinned commit `9327439db69021ab4b0e2776729bf3b58fdb5a87` into ignored `.studio/repos/OpenMontage/`. Added `tools/openmontage_reference.py`, which invokes upstream `SceneDetect` and `FrameSampler` with local FFmpeg/ffprobe and writes an ignored scene/frame report. No full OpenMontage producer, provider, Backlot or render pipeline was installed. The R04 pilot verified the source hash, extracted 16 frames and returned a report. Its FFmpeg scene detector found only one scene, missing the visually noted mid-clip change; the adapter fell back to even frame sampling and does not claim precise cut detection. `tools/OPENMONTAGE_REFERENCE.md` contains the run command and boundaries; the Paperclip Visual Director can use a supplied report as a candidate input, but it is not auto-dispatched. `claude-mem` was evaluated and deferred because episode-scoped explicit memory already exists and no token-saving comparison has been measured.
+
+The Python regression suite passed: 218 tests and 17 subtests. Pytest reported one cache-write warning under `.pytest_cache`; tests still completed. Python compile and `git diff --check` passed.
 
 ## Paperclip agent control plane — October 3
 

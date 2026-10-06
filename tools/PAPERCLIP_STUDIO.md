@@ -46,6 +46,8 @@ The pilot uses the first **46.112 seconds** of `episodes/002-ronaldo-hate-psycho
 
 For the original animation, keep `blender/rules_short_scene.py` and `tools/run_same_standard.sh` as the Blender path on the permitted Mac. The creator's Windows PC can use `creator.ps1 media plan`, `media build`, and `media render` with a locked WAV and an edited frame timeline for a new HyperFrames tactical cut. See `tools/CREATOR_SYSTEM.md` for exact media commands. Paperclip dispatches the work; the deterministic renderers and evidence checks make the output. The Mac receives only approved repository content and runs permitted Git/Blender operations.
 
+For a new visual reference, run the pinned local OpenMontage analysis command in [OPENMONTAGE_REFERENCE.md](OPENMONTAGE_REFERENCE.md) on Windows. Attach its ignored report and selected frames to the Visual Director's brief. The command uses OpenMontage's actual `SceneDetect` and `FrameSampler` tools; Paperclip does not launch it automatically, and the report needs visual review before shot timing is adopted.
+
 ## Learning and operating cost
 
 The system learns preferences through **explicitly accepted examples**, not model retraining. Save approved/rejected phrasing in Creator Desk, link the accepted artifact in the Paperclip issue, and revise the role instructions only when the preference is durable. Keep raw takes and uncertain claims visible instead of hiding them in a generic summary. Short role files and episode-specific source retrieval limit repeated context, but token savings require a measured comparison. No automatic paid media provider, scheduled publishing, trading or background research routine is configured.

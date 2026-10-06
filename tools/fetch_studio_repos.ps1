@@ -8,7 +8,8 @@ $catalog = @(
     @{ name = 'hermes-agent'; url = 'https://github.com/NousResearch/hermes-agent.git' },
     @{ name = 'ViMax'; url = 'https://github.com/HKUDS/ViMax.git' },
     @{ name = 'Understand-Anything'; url = 'https://github.com/Egonex-AI/Understand-Anything.git' },
-    @{ name = 'last30days-skill'; url = 'https://github.com/mvanhorn/last30days-skill.git' }
+    @{ name = 'last30days-skill'; url = 'https://github.com/mvanhorn/last30days-skill.git' },
+    @{ name = 'OpenMontage'; url = 'https://github.com/calesthio/OpenMontage.git' }
 )
 $previous = @{}
 $readLockPath = $lockPath

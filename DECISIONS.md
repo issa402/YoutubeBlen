@@ -1,5 +1,11 @@
 # Decision Log
 
+## 2026-10-05 — Pin OpenMontage for bounded reference analysis
+
+Use OpenMontage's local scene-detection and frame-sampling tools as an optional Windows reference ingest step. Pin upstream source in the ignored checkout and record its commit in the studio repo lock; keep its AGPL code outside tracked project source. Attach resulting reports to Paperclip visual-direction work only after reviewing the original clip and frames. Preserve Paperclip for agent dispatch and the existing Blender/HyperFrames render paths. A missed R04 scene change demonstrates that automated boundaries are suggestions, not timing authority. Defer the full OpenMontage producer stack until a concrete production gap justifies its dependencies, agent state and provider costs.
+
+Do not install `claude-mem` into the shared Codex/Hermes profiles now. Explicit episode-scoped creator examples, project docs and source provenance already cover the current memory need. Its automatic observations could add unreviewed content and another state store; evaluate isolation and measured retrieval/token benefit first if this becomes a bottleneck.
+
 ## 2026-10-03 — Adopt Paperclip for local agent dispatch
 
 Use a pinned, loopback-only Paperclip instance on the personal Windows PC as the actual agent job board, with versioned role instructions and episode-specific issues. Keep the existing episode/source files as editorial authority and the Creator Desk as an artifact/media review surface; its SQLite stages are not synchronized to Paperclip. The four roles submit candidates in ignored local workspaces and require human review between evidence, script, animatic and release. Disable timer heartbeats and leave unused roles in backlog. Blender and HyperFrames remain deterministic render paths, and the employer-managed Mac only receives approved Git content for permitted Blender work.
